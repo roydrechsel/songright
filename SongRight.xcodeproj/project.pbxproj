@@ -14,6 +14,7 @@
 		547567941E6FAE9100E1BD64 /* RecordingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547567931E6FAE9100E1BD64 /* RecordingsTableViewController.swift */; };
 		547567961E6FAEF700E1BD64 /* Recordings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547567951E6FAEF700E1BD64 /* Recordings.swift */; };
 		547567981E6FB93E00E1BD64 /* RecordingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547567971E6FB93E00E1BD64 /* RecordingsController.swift */; };
+		5475679A1E6FBBDF00E1BD64 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547567991E6FBBDF00E1BD64 /* FavoritesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		547567931E6FAE9100E1BD64 /* RecordingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsTableViewController.swift; sourceTree = "<group>"; };
 		547567951E6FAEF700E1BD64 /* Recordings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recordings.swift; sourceTree = "<group>"; };
 		547567971E6FB93E00E1BD64 /* RecordingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsController.swift; sourceTree = "<group>"; };
+		547567991E6FBBDF00E1BD64 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,15 +61,48 @@
 			isa = PBXGroup;
 			children = (
 				5475677F1E6F974200E1BD64 /* AppDelegate.swift */,
-				547567951E6FAEF700E1BD64 /* Recordings.swift */,
-				547567971E6FB93E00E1BD64 /* RecordingsController.swift */,
+				5475679C1E6FBBF500E1BD64 /* Model */,
+				5475679D1E6FBBFC00E1BD64 /* Controllers */,
+				5475679B1E6FBBE800E1BD64 /* ViewControllers */,
+				5475679E1E6FBC0800E1BD64 /* Resources */,
+			);
+			path = SongRight;
+			sourceTree = "<group>";
+		};
+		5475679B1E6FBBE800E1BD64 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
 				547567931E6FAE9100E1BD64 /* RecordingsTableViewController.swift */,
+				547567991E6FBBDF00E1BD64 /* FavoritesTableViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5475679C1E6FBBF500E1BD64 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				547567951E6FAEF700E1BD64 /* Recordings.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		5475679D1E6FBBFC00E1BD64 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				547567971E6FB93E00E1BD64 /* RecordingsController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		5475679E1E6FBC0800E1BD64 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				547567851E6F974200E1BD64 /* Main.storyboard */,
 				547567881E6F974200E1BD64 /* Assets.xcassets */,
 				5475678A1E6F974200E1BD64 /* LaunchScreen.storyboard */,
 				5475678D1E6F974200E1BD64 /* Info.plist */,
 			);
-			path = SongRight;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,6 +181,7 @@
 				547567941E6FAE9100E1BD64 /* RecordingsTableViewController.swift in Sources */,
 				547567981E6FB93E00E1BD64 /* RecordingsController.swift in Sources */,
 				547567801E6F974200E1BD64 /* AppDelegate.swift in Sources */,
+				5475679A1E6FBBDF00E1BD64 /* FavoritesTableViewController.swift in Sources */,
 				547567961E6FAEF700E1BD64 /* Recordings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
