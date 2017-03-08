@@ -28,10 +28,10 @@
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Recordings Table View Controller-->
         <scene sceneID="fxk-HZ-Awn">
             <objects>
-                <tableViewController id="faU-G2-QNI" sceneMemberID="viewController">
+                <tableViewController id="faU-G2-QNI" customClass="RecordingsTableViewController" customModule="SongRight" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="pFW-gU-jjt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -47,10 +47,10 @@
             </objects>
             <point key="canvasLocation" x="1996" y="370.16491754122939"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Recordings Table View Controller-->
         <scene sceneID="Dep-BZ-Kbm">
             <objects>
-                <tableViewController id="tTf-gr-uhU" sceneMemberID="viewController">
+                <tableViewController id="tTf-gr-uhU" customClass="RecordingsTableViewController" customModule="SongRight" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="3YK-dU-kts">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

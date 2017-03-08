@@ -6,15 +6,15 @@
 //  Copyright © 2017 Andrew Drechsel. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class Recordings: Equatable {
     
-    var title: String
+    var title: String?
     var timestamp: Date
     var length: Double
     
-    init(title: String, timestamp: Date = Date(), length: Double) {
+    init(title: String?, timestamp: Date = Date(), length: Double) {
         
         self.title = title
         self.timestamp = timestamp
@@ -26,5 +26,4 @@ class Recordings: Equatable {
 func ==(lhs: Recordings, rhs: Recordings) -> Bool {
     
     return lhs.title == rhs.title && lhs.timestamp == rhs.timestamp && lhs.length == rhs.length
-    
 }
