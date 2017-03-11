@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import AVFoundation
 
 class RecordingsController {
     
     static let shared = RecordingsController()
+    
     var recordings = [Recordings]()
     
-    
-    func addRecording(recording: Recordings) {
+    func createRecording(recording: Recordings) {
         
         
     }
@@ -23,4 +24,6 @@ class RecordingsController {
         
         
     }
+    
+    
 }

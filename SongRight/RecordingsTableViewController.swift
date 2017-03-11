@@ -7,12 +7,38 @@
 //
 
 import UIKit
+import AVFoundation
 
 class RecordingsTableViewController: UITableViewController {
+    
+    var recordButton: UIButton!
+    var recordingSession: AVAudioSession!
+    var audioRecorder: AVAudioRecorder!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        recordingSession = AVAudioSession.sharedInstance()
+        
+//        do {
+//            try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+//            try recordingSession.setActive(true)
+//            recordingSession.requestRecordPermission() { [unowned self] allowed in
+//                DispatchQueue.main.async {
+//                    if allowed {
+//                        //WRITE THIS FUNCTION INSIDE AN IB
+//                        self.loadRecordingUI()
+//                    } else {
+//                        //CREATE AN ALERT!
+//                        print("Failed to record!")
+//                    }
+//                }
+//                
+//            }
+//        } catch {
+//            //CREATE AN ALERT!
+//            print("Failed to record!")
+//        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
