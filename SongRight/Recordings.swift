@@ -11,12 +11,12 @@ import AVFoundation
 
 class Recordings: Equatable {
     
-    var title: String?
+    var title: String = "Andrew"
     var timestamp: Date
     var length: Double
     var isFavorite: Bool
     
-    init(title: String?, timestamp: Date = Date(), length: Double, isFavorite: Bool) {
+    init(title: String, timestamp: Date = Date(), length: Double, isFavorite: Bool) {
         
         self.title = title
         self.timestamp = timestamp

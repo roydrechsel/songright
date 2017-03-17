@@ -7,8 +7,15 @@
 //
 
 import UIKit
+import AVFoundation
+
+protocol ShareButtonTappedDelegate: class {
+    func shareButtonTapped()
+}
 
 class RecordingsCustomTableViewCell: UITableViewCell {
+
+    weak var delegate: ShareButtonTappedDelegate?
     
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var date: UILabel!
@@ -19,6 +26,27 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     @IBAction func playPauseButtonTapped(_ sender: Any) {
         
         
+    }
+    
+    @IBAction func shareButtonTapped(_ sender: Any) {
+        
+        delegate?.shareButtonTapped()
+    }
+    
+    
+    func updateViews() {
+        
+        title.text = recording?.title
+//        date. = recording?.timestamp
+//        length.text = recording?.length
+//        
+    }
+    
+    var recording: Recordings? {
+        
+        didSet {
+            updateViews()
+        }
     }
     
     override func awakeFromNib() {
