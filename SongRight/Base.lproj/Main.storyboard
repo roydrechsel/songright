@@ -126,25 +126,21 @@
                                                         <action selector="playPauseButtonTapped:" destination="sdm-th-sRR" eventType="touchUpInside" id="kCM-pd-zWI"/>
                                                     </connections>
                                                 </button>
-                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="gJd-kN-njh">
-                                                    <rect key="frame" x="306" y="0.0" width="61" height="89"/>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xl-so-oXP">
+                                                    <rect key="frame" x="352" y="58" width="15" height="23"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Favorite" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOY-xd-wVc">
-                                                            <rect key="frame" x="0.0" y="0.0" width="61" height="20.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xl-so-oXP">
-                                                            <rect key="frame" x="0.0" y="58.5" width="61" height="30"/>
-                                                            <state key="normal" title="Button"/>
-                                                            <connections>
-                                                                <action selector="shareButtonTapped:" destination="sdm-th-sRR" eventType="touchUpInside" id="qpu-or-803"/>
-                                                            </connections>
-                                                        </button>
-                                                    </subviews>
-                                                </stackView>
+                                                    <state key="normal" image="main-qimg-d7704f6cffa4dc8343df27f3b79203d5"/>
+                                                    <connections>
+                                                        <action selector="shareButtonTapped:" destination="sdm-th-sRR" eventType="touchUpInside" id="qpu-or-803"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Favorite" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOY-xd-wVc">
+                                                    <rect key="frame" x="231" y="8" width="136" height="23"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="0BK-CN-TU7" firstAttribute="leading" secondItem="tI9-RU-GRv" secondAttribute="trailing" constant="87" id="75W-Xo-IWh"/>
@@ -248,5 +244,6 @@
     <resources>
         <image name="Red-circle-transparent-1024x1006" width="512" height="503"/>
         <image name="first" width="30" height="30"/>
+        <image name="main-qimg-d7704f6cffa4dc8343df27f3b79203d5" width="120" height="173"/>
     </resources>
 </document>

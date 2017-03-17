@@ -116,7 +116,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         cell.title.text = recording.title
         cell.date.text = getStringFromDate(date: Date())
 //        cell.length.text = recording.length
-        cell.backgroundColor = UIColor.brown
+//        cell.backgroundColor = UIColor.brown
         cell.delegate = self
         
         return cell
