@@ -48,6 +48,14 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
 //        view.addSubview(recordButton)
 //    }
     
+    func loadRecordingUI() {
+        recordButton = recordingButton
+        recordButton.setTitle("Tap to Record", for: .normal)
+        recordButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)
+        recordButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
+        view.addSubview(recordButton)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,7 +67,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
             recordingSession.requestRecordPermission() { [unowned self] allowed in
             DispatchQueue.main.async {
                     if allowed {
-//                        self.loadRecordingUI() //I already have a UI built in Storyboard, do I need this? How do I access what i have built? Put it in the loadRecordingUI func? Or reference it here?
+                        self.loadRecordingUI() //I already have a UI built in Storyboard, do I need this? How do I access what i have built? Put it in the loadRecordingUI func? Or reference it here?
                     } else {
                         //failed to record
                     }
@@ -77,6 +85,15 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
         return documentsDirectory
+    }
+    
+    func recordTapped() {
+        
+        if audioRecorder == nil {
+            startRecording()
+        } else {
+            finishRecording(success: true)
+        }
     }
     
     func startRecording() {
@@ -97,9 +114,31 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
             
             recordButton.setTitle("Tap to Stop", for: .normal)
         } catch {
-//            finishRecording(success: false)
+            finishRecording(success: false)
         }
     }
+    
+    func finishRecording(success: Bool) {
+        
+        audioRecorder.stop()
+        audioRecorder = nil
+        
+        if success {
+            recordButton.setTitle("Tap to Re-record", for: .normal)
+        } else {
+            recordButton.setTitle("Tap to Record", for: .normal)
+        }
+    }
+    
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        if !flag {
+            finishRecording(success: false)
+        }
+    }
+    
+    
+    
+    
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
