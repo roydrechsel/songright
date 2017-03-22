@@ -12,12 +12,14 @@
 		547567891E6F974200E1BD64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 547567881E6F974200E1BD64 /* Assets.xcassets */; };
 		5475678C1E6F974200E1BD64 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5475678A1E6F974200E1BD64 /* LaunchScreen.storyboard */; };
 		547567941E6FAE9100E1BD64 /* RecordingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547567931E6FAE9100E1BD64 /* RecordingsTableViewController.swift */; };
-		547567961E6FAEF700E1BD64 /* Recordings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547567951E6FAEF700E1BD64 /* Recordings.swift */; };
+		547567961E6FAEF700E1BD64 /* Recordings+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547567951E6FAEF700E1BD64 /* Recordings+Convenience.swift */; };
 		547567981E6FB93E00E1BD64 /* RecordingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547567971E6FB93E00E1BD64 /* RecordingsController.swift */; };
 		5475679A1E6FBBDF00E1BD64 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547567991E6FBBDF00E1BD64 /* FavoritesTableViewController.swift */; };
 		548EA8141E72537C0018E0E9 /* RecordingsCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548EA8131E72537C0018E0E9 /* RecordingsCustomTableViewCell.swift */; };
 		548EA8341E7464430018E0E9 /* RecordingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548EA8331E7464430018E0E9 /* RecordingsViewController.swift */; };
 		548EA8361E74647C0018E0E9 /* FavoriteRecordingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548EA8351E74647C0018E0E9 /* FavoriteRecordingsViewController.swift */; };
+		54E98F5D1E7D95B600124B0C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 54E98F5B1E7D95B600124B0C /* Model.xcdatamodeld */; };
+		54E98F5F1E7D969100124B0C /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E98F5E1E7D969100124B0C /* Stack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,12 +30,14 @@
 		5475678B1E6F974200E1BD64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5475678D1E6F974200E1BD64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		547567931E6FAE9100E1BD64 /* RecordingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsTableViewController.swift; sourceTree = "<group>"; };
-		547567951E6FAEF700E1BD64 /* Recordings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recordings.swift; sourceTree = "<group>"; };
+		547567951E6FAEF700E1BD64 /* Recordings+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Recordings+Convenience.swift"; sourceTree = "<group>"; };
 		547567971E6FB93E00E1BD64 /* RecordingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsController.swift; sourceTree = "<group>"; };
 		547567991E6FBBDF00E1BD64 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		548EA8131E72537C0018E0E9 /* RecordingsCustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsCustomTableViewCell.swift; sourceTree = "<group>"; };
 		548EA8331E7464430018E0E9 /* RecordingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsViewController.swift; sourceTree = "<group>"; };
 		548EA8351E74647C0018E0E9 /* FavoriteRecordingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteRecordingsViewController.swift; sourceTree = "<group>"; };
+		54E98F5C1E7D95B600124B0C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		54E98F5E1E7D969100124B0C /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +93,9 @@
 		5475679C1E6FBBF500E1BD64 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				547567951E6FAEF700E1BD64 /* Recordings.swift */,
+				547567951E6FAEF700E1BD64 /* Recordings+Convenience.swift */,
+				54E98F5E1E7D969100124B0C /* Stack.swift */,
+				54E98F5B1E7D95B600124B0C /* Model.xcdatamodeld */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -192,9 +198,11 @@
 				547567981E6FB93E00E1BD64 /* RecordingsController.swift in Sources */,
 				547567801E6F974200E1BD64 /* AppDelegate.swift in Sources */,
 				5475679A1E6FBBDF00E1BD64 /* FavoritesTableViewController.swift in Sources */,
+				54E98F5D1E7D95B600124B0C /* Model.xcdatamodeld in Sources */,
+				54E98F5F1E7D969100124B0C /* Stack.swift in Sources */,
 				548EA8341E7464430018E0E9 /* RecordingsViewController.swift in Sources */,
 				548EA8141E72537C0018E0E9 /* RecordingsCustomTableViewCell.swift in Sources */,
-				547567961E6FAEF700E1BD64 /* Recordings.swift in Sources */,
+				547567961E6FAEF700E1BD64 /* Recordings+Convenience.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +367,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		54E98F5B1E7D95B600124B0C /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				54E98F5C1E7D95B600124B0C /* Model.xcdatamodel */,
+			);
+			currentVersion = 54E98F5C1E7D95B600124B0C /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 547567741E6F974200E1BD64 /* Project object */;
 }

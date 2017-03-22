@@ -13,6 +13,10 @@ protocol ShareButtonTappedDelegate: class {
     func shareButtonTapped()
 }
 
+protocol PlayPauseButtonTappedDelegate: class {
+    func playPauseButtonTapped()
+}
+
 class RecordingsCustomTableViewCell: UITableViewCell {
 
     weak var delegate: ShareButtonTappedDelegate?
@@ -21,7 +25,11 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var length: UILabel!
     @IBOutlet weak var playPauseButton: UIButton!
-    @IBOutlet weak var favorite: UILabel!
+    @IBOutlet weak var favoriteButton: UIButton!
+    
+    @IBAction func favoriteButtonTapped(_ sender: Any) {
+        
+    }
     
     @IBAction func playPauseButtonTapped(_ sender: Any) {
         

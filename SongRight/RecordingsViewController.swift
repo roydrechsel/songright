@@ -8,10 +8,11 @@
 
 import UIKit
 import AVFoundation
+import CoreData
 
-class RecordingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioRecorderDelegate, ShareButtonTappedDelegate {
+class RecordingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioRecorderDelegate, ShareButtonTappedDelegate, NSFetchedResultsControllerDelegate {
     
-    var recordButton: UIButton! //Do I need this when I already have that recordingButton IBOutlet?
+    //    var recordButton: UIButton! //Do I need this when I already have that recordingButton IBOutlet?
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     
@@ -22,8 +23,26 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var recordingButton: UIButton!
     
     
+    
+    
+    
+    //IF I MOVE ALL OF THIS STUFF INTO MY RECORDINGS CONTROLLER, WHERE DO I PUT MY OUTLETS?
+    
+    
+    
+    let fetchedResultsController: NSFetchedResultsController<Recordings> = {
+        
+        let fetchRequest: NSFetchRequest<Recordings> = Recordings.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true)]
+        
+        return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
+    }()
+    
+    
+    
     @IBAction func recordButtonTapped(_ sender: Any) {
         
+        recordTapped()
         
     }
     //TODO -- UPDATE activityItems TO BE AN ACTUAL RECORDING OBJECT TO SHARE, RATHER THAN JUST THE PLACEHOLDER recording.title THAT I'M SHARING RIGHT NOW
@@ -49,11 +68,9 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
 //    }
     
     func loadRecordingUI() {
-        recordButton = recordingButton
-        recordButton.setTitle("Tap to Record", for: .normal)
-        recordButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)
-        recordButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
-        view.addSubview(recordButton)
+        recordingButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
+        recordingButton.setTitle("Record", for: .normal)
+        recordingButton.setTitleColor(UIColor.purple, for: .normal)
     }
     
     override func viewDidLoad() {
@@ -79,6 +96,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         
 //        RecordingsTableView.delegate = self
 //        RecordingsTableView.dataSource = self
+        
     }
     
     func getDocumentsDirectory() -> URL {
@@ -90,9 +108,24 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     func recordTapped() {
         
         if audioRecorder == nil {
+            
             startRecording()
         } else {
             finishRecording(success: true)
+        }
+        
+//        RecordingsViewController.updateTimer(_:)
+    }
+    
+    func updateTimer(_ timer: Timer) {
+        
+        if audioRecorder.isRecording {
+            let min = Int(audioRecorder.currentTime / 60)
+            let sec = Int(audioRecorder.currentTime.truncatingRemainder(dividingBy: 60))
+            let timerString = String(format: "%02d:%02d", min, sec)
+            
+            recordingTimer.text = timerString
+            audioRecorder.updateMeters()
         }
     }
     
@@ -112,7 +145,8 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
             audioRecorder.delegate = self
             audioRecorder.record()
             
-            recordButton.setTitle("Tap to Stop", for: .normal)
+            recordingButton.setTitle("Tap to Stop", for: .normal)
+            recordingButton.setTitleColor(UIColor.black, for: .normal)
         } catch {
             finishRecording(success: false)
         }
@@ -124,9 +158,11 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         audioRecorder = nil
         
         if success {
-            recordButton.setTitle("Tap to Re-record", for: .normal)
+            recordingButton.setTitle("Tap to Re-record", for: .normal)
+            recordingButton.setTitleColor(UIColor.red, for: .normal)
         } else {
-            recordButton.setTitle("Tap to Record", for: .normal)
+            recordingButton.setTitle("Tap to Record", for: .normal)
+            recordingButton.setTitleColor(UIColor.blue, for: .normal)
         }
     }
     
@@ -135,9 +171,6 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
             finishRecording(success: false)
         }
     }
-    
-    
-    
     
     
     
@@ -160,5 +193,26 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         
         return cell
     }
+    
+    //MARK: - NSFetchResultsControllerDelegate
+    
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+//        switch type {
+//        case .delete:
+//            guard let indexPath = indexPath else { return }
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        case .insert:
+//            guard let newIndexPath = newIndexPath else { return }
+//            tableView.insertRows(at: [newIndexPath], with: .top)
+//        case.update:
+//            guard let indexPath = indexPath else { return }
+//            tableView.reloadRows(at: [indexPath], with: .automatic)
+//        case.move:
+//            guard let indexPath = indexPath,
+//                let newIndexPath = newIndexPath else { return }
+//            tableView.moveRow(at: indexPath, to: newIndexPath)
+//            
+//        }
+//    }
     
 }
