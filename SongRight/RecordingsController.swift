@@ -32,16 +32,33 @@ class RecordingsController: ShareButtonTappedDelegate {
     //MOVE ALL OF MY AVFOUNDATION STUFF FROM THE RECORDINGSVIEWCONTROLLER INTO THIS RECORDINGSCONTROLLER!
     
     
-    var recordings = [Recordings]()
+    var recordings: [Recordings] {
+        
+        return loadRecordingsFromPersistentStore()
+    }
     
     
-    let fetchedResultsController: NSFetchedResultsController<Recordings> = {
+    func loadRecordingsFromPersistentStore() -> [Recordings] {
         
         let fetchRequest: NSFetchRequest<Recordings> = Recordings.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true)]
+
+        let moc = CoreDataStack.context
         
-        return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
-    }()
+        do {
+            let results = try moc.fetch(fetchRequest)
+            return results
+        } catch {
+            print("Error fetching recordings from persistent store")
+            return []
+        }
+    }
+    
+//    let fetchedResultsController: NSFetchedResultsController<Recordings> = {
+//        
+//        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true)]
+//        
+//        return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
+//    }()
     
     
     func createRecording(recording: Recordings) {

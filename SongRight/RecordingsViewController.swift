@@ -46,13 +46,12 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
                 let alertController = UIAlertController(title: "Save Recording", message: "Would you like to save your recording?", preferredStyle: .alert)
                 
                 let saveAction = UIAlertAction(title: "Save", style: .default, handler: { (action: UIAlertAction) -> Void in
-                    //                guard let newRecording = alertController.textFields?.first?.text else { return }
-                    //                Recordings.init(entity: newRecording, insertInto: title)
                     
                     guard let newRecordingTitle = alertController.textFields?.first?.text else { return }
                     let newRecording = Recordings(title: newRecordingTitle, timestamp: Date(), length: 6.66, isFavorite: false, context: CoreDataStack.context)
                     RecordingsController.shared.createRecording(recording: newRecording)
                     
+                    self.RecordingsTableView.reloadData()
                 })
                 
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action: UIAlertAction) -> Void in }
@@ -66,7 +65,6 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
                 finishRecording(success: true)
                 recordingButton.setTitle("Record", for: .normal)
                 recordingButton.setTitleColor(UIColor.red, for: .normal)
-                RecordingsTableView.reloadData()
 
             } else {
                 return
@@ -217,7 +215,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "recordingCell", for: indexPath) as? RecordingsCustomTableViewCell else { return UITableViewCell() }
         
-        //        let recording = RecordingsController.shared.recordings[indexPath.row]
+        let recording = RecordingsController.shared.recordings[indexPath.row]
         cell.title.text = recording.title
         cell.date.text = getStringFromDate(date: Date())
         //        cell.length.text = recording.length
@@ -225,6 +223,16 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         cell.delegate = self
         
         return cell
+    }
+    
+    // Override to support editing the table view.
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
     }
     
     //MARK: - NSFetchResultsControllerDelegate
