@@ -20,6 +20,7 @@ protocol PlayPauseButtonTappedDelegate: class {
 class RecordingsCustomTableViewCell: UITableViewCell {
 
     weak var delegate: ShareButtonTappedDelegate?
+    var audioRecorder: AVAudioRecorder!
     
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var date: UILabel!
@@ -33,6 +34,7 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     
     @IBAction func playPauseButtonTapped(_ sender: Any) {
         
+        setSessionPlayback()
         
     }
     
@@ -55,6 +57,32 @@ class RecordingsCustomTableViewCell: UITableViewCell {
         didSet {
             updateViews()
         }
+    }
+    
+    func setSessionPlayback() {
+        
+        let session: AVAudioSession = AVAudioSession.sharedInstance()
+        
+        do {
+            try session.setCategory(AVAudioSessionCategoryPlayback)
+        } catch let error as NSError {
+            print("Could not set session category")
+            print(error.localizedDescription)
+        }
+        do {
+            try session.setActive(true)
+        } catch let error as NSError {
+            print("Could not set session as active")
+            print(error.localizedDescription)
+        }
+    }
+    
+    func play() {
+        
+//        var recording:
+//        if self.audioRecorder != nil {
+//            recording = self.audioRecorder.recording
+//        }
     }
     
     override func awakeFromNib() {

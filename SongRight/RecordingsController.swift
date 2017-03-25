@@ -8,8 +8,11 @@
 
 import UIKit
 import AVFoundation
+import CoreData
 
 class RecordingsController: ShareButtonTappedDelegate {
+    
+    static let shared = RecordingsController()
     
     //    var recordButton: UIButton! //Do I need this when I already have that recordingButton IBOutlet?
     var recordingSession: AVAudioSession!
@@ -28,9 +31,18 @@ class RecordingsController: ShareButtonTappedDelegate {
     //MOVE ALL OF MY AVFOUNDATION STUFF FROM THE RECORDINGSVIEWCONTROLLER INTO THIS RECORDINGSCONTROLLER!
     //MOVE ALL OF MY AVFOUNDATION STUFF FROM THE RECORDINGSVIEWCONTROLLER INTO THIS RECORDINGSCONTROLLER!
     
-    static let shared = RecordingsController()
     
     var recordings = [Recordings]()
+    
+    
+    let fetchedResultsController: NSFetchedResultsController<Recordings> = {
+        
+        let fetchRequest: NSFetchRequest<Recordings> = Recordings.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true)]
+        
+        return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
+    }()
+    
     
     func createRecording(recording: Recordings) {
         
