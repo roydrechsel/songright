@@ -32,7 +32,7 @@ class RecordingsController: ShareButtonTappedDelegate {
     //MOVE ALL OF MY AVFOUNDATION STUFF FROM THE RECORDINGSVIEWCONTROLLER INTO THIS RECORDINGSCONTROLLER!
     
     
-    var recordings: [Recordings] {
+    var recordings: [Recordings]? {
         
         return loadRecordingsFromPersistentStore()
     }

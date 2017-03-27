@@ -21,15 +21,15 @@ class FavoriteRecordingsViewController: UIViewController, UITableViewDataSource,
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return RecordingsController.shared.recordings.filter({$0.isFavorite}).count
+        return RecordingsController.shared.recordings!.filter({$0.isFavorite}).count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "recordingCell", for: indexPath) as? RecordingsCustomTableViewCell else { return UITableViewCell() }
         
-        let favoriteRecording = RecordingsController.shared.recordings.filter({$0.isFavorite})
-        cell.title.text = favoriteRecording.description
+        let favoriteRecording = RecordingsController.shared.recordings?.filter({$0.isFavorite})
+//        cell.title.text = favoriteRecording.description
         
         return cell
     }

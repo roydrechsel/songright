@@ -208,15 +208,15 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         //        return 1
-        return RecordingsController.shared.recordings.count
+        return RecordingsController.shared.recordings!.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "recordingCell", for: indexPath) as? RecordingsCustomTableViewCell else { return UITableViewCell() }
         
-        let recording = RecordingsController.shared.recordings[indexPath.row]
-        cell.title.text = recording.title
+        let recording = RecordingsController.shared.recordings?[indexPath.row]
+        cell.title.text = recording?.title
         cell.date.text = getStringFromDate(date: Date())
         //        cell.length.text = recording.length
         //        cell.backgroundColor = UIColor.brown
@@ -228,10 +228,10 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     // Override to support editing the table view.
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
+            if let recordingToDelete = RecordingsController.shared.recordings?[indexPath.row] {
+                RecordingsController.shared.deleteRecording(recording: recordingToDelete)
+            }
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
     
