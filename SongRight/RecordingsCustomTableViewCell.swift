@@ -28,12 +28,27 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
     
+    var isFavorite = false
+    
     @IBAction func favoriteButtonTapped(_ sender: Any) {
         
+        if isFavorite == false {
+            
+            favoriteButton.imageView?.image = UIImage(cgImage: #imageLiteral(resourceName: "Favorite Selected") as! CGImage)
+            isFavorite = true
+            
+        } else {
+                favoriteButton.imageView?.image = UIImage(cgImage: #imageLiteral(resourceName: "Favorite Deselected") as! CGImage)
+                isFavorite = false
+        }
     }
     
     @IBAction func playPauseButtonTapped(_ sender: Any) {
         
+//        if let playableRecording = recording?.managedObjectContext {
+//         
+//            RecordingsController.shared.playRecording(recording: playableRecording)
+//        }
         setSessionPlayback()
         
     }

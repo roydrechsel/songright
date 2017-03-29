@@ -12,9 +12,6 @@ import CoreData
 
 class RecordingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioRecorderDelegate, ShareButtonTappedDelegate, NSFetchedResultsControllerDelegate {
     
-    //    var recordButton: UIButton! //Do I need this when I already have that recordingButton IBOutlet?
-    
-    
     //    let recording = Recordings(title: "My next single!", length: 2, isFavorite: true)?
     let recording = Recordings()
     
@@ -27,15 +24,12 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     
     //IF I MOVE ALL OF THIS STUFF INTO MY RECORDINGS CONTROLLER, WHERE DO I PUT MY OUTLETS?
     
-    
-    
     @IBAction func recordButtonTapped(_ sender: Any) {
         
         if isRecording == false {
             isRecording = true
-//            if RecordingsController.shared.audioRecorder == nil {
             
-            startRecording()
+            RecordingsController.shared.startRecording()
             recordingButton.setTitle("Stop", for: .normal)
             recordingButton.setTitleColor(UIColor.black, for: .normal)
 //            }
@@ -43,7 +37,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
             isRecording = false
             if RecordingsController.shared.audioRecorder != nil && RecordingsController.shared.audioRecorder.isRecording {
                 
-                let alertController = UIAlertController(title: "Save Recording", message: "Would you like to save your recording?", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Save Recording", message: "Give it a great title:", preferredStyle: .alert)
                 
                 let saveAction = UIAlertAction(title: "Save", style: .default, handler: { (action: UIAlertAction) -> Void in
                     
@@ -62,7 +56,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
                 alertController.addAction(cancelAction)
                 
                 self.present(alertController, animated: true, completion: nil)
-                finishRecording(success: true)
+                RecordingsController.shared.finishRecording(success: true)
                 recordingButton.setTitle("Record", for: .normal)
                 recordingButton.setTitleColor(UIColor.red, for: .normal)
 
@@ -86,13 +80,6 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         return dateFormatter.string(from: date)
     }
     
-    //    func loadRecordingUI() {
-    //        recordButton = UIButton(frame: CGRect(x: 64, y: 64, width: 128, height: 64))
-    //        recordButton.setTitle("Tap to Record", for: .normal)
-    //        recordButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)
-    //        recordButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
-    //        view.addSubview(recordButton)
-    //    }
     
     //    func loadRecordingUI() {
     //        recordingButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
@@ -135,12 +122,6 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         RecordingsTableView.reloadData()
     }
     
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentsDirectory = paths[0]
-        return documentsDirectory
-    }
-    
     
     func updateTimer(_ timer: Timer) {
         
@@ -151,55 +132,6 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
             
             recordingTimer.text = timerString
             RecordingsController.shared.audioRecorder.updateMeters()
-        }
-    }
-    
-    func startRecording() {
-        
-        let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
-        
-        let settings = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 12000,
-            AVNumberOfChannelsKey: 1,
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-        ]
-        
-        do {
-            RecordingsController.shared.audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
-            RecordingsController.shared.audioRecorder.delegate = self
-            RecordingsController.shared.audioRecorder.record()
-            
-//            recordingButton.setTitle("Tap to Stop", for: .normal)
-//            recordingButton.setTitleColor(UIColor.black, for: .normal)
-//            
-            
-            
-        } catch {
-            finishRecording(success: false)
-        }
-    }
-    
-    func finishRecording(success: Bool) {
-        
-        RecordingsController.shared.audioRecorder.stop()
-        RecordingsController.shared.audioRecorder = nil
-        
-        if success {
-//            recordingButton.setTitle("Tap to Re-record", for: .normal)
-//            recordingButton.setTitleColor(UIColor.red, for: .normal)
-            RecordingsController.shared.createRecording(recording: recording)
-        } else {
-//            recordingButton.setTitle("Tap to Record", for: .normal)
-//            recordingButton.setTitleColor(UIColor.blue, for: .normal)
-            RecordingsController.shared.deleteRecording(recording: recording)
-        }
-        
-    }
-    
-    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        if !flag {
-            finishRecording(success: false)
         }
     }
     

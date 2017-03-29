@@ -32,7 +32,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HVy-xu-Kln" id="d6b-Dd-aOL">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.16602001699999999" green="0.72341295809999995" blue="0.1086983547" alpha="1" colorSpace="calibratedRGB"/>
@@ -86,7 +86,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sdm-th-sRR" id="L57-8G-auy">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="tI9-RU-GRv">
@@ -126,31 +126,46 @@
                                                         <action selector="playPauseButtonTapped:" destination="sdm-th-sRR" eventType="touchUpInside" id="kCM-pd-zWI"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xl-so-oXP">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xl-so-oXP" userLabel="Share Button">
                                                     <rect key="frame" x="352" y="58" width="15" height="23"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="5xl-so-oXP" secondAttribute="height" multiplier="15:23" id="3pu-sM-R6R"/>
+                                                    </constraints>
                                                     <state key="normal" image="main-qimg-d7704f6cffa4dc8343df27f3b79203d5"/>
                                                     <connections>
                                                         <action selector="shareButtonTapped:" destination="sdm-th-sRR" eventType="touchUpInside" id="qpu-or-803"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iXW-9M-AWp">
-                                                    <rect key="frame" x="239" y="8" width="128" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Favorite"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iXW-9M-AWp">
+                                                    <rect key="frame" x="337" y="8" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="iXW-9M-AWp" secondAttribute="height" multiplier="1:1" id="moz-1L-AlG"/>
+                                                    </constraints>
+                                                    <state key="normal" image="Favorite Deselected"/>
                                                     <connections>
                                                         <action selector="favoriteButtonTapped:" destination="sdm-th-sRR" eventType="touchUpInside" id="N4o-uL-6f0"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="5xl-so-oXP" firstAttribute="top" secondItem="iXW-9M-AWp" secondAttribute="bottom" constant="20" id="0OC-xp-PKb"/>
+                                                <constraint firstItem="5xl-so-oXP" firstAttribute="trailing" secondItem="L57-8G-auy" secondAttribute="trailingMargin" id="2tm-0l-HYm"/>
                                                 <constraint firstItem="0BK-CN-TU7" firstAttribute="leading" secondItem="tI9-RU-GRv" secondAttribute="trailing" constant="87" id="75W-Xo-IWh"/>
+                                                <constraint firstItem="iXW-9M-AWp" firstAttribute="trailing" secondItem="L57-8G-auy" secondAttribute="trailingMargin" id="7ed-UO-baJ"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="tI9-RU-GRv" secondAttribute="bottom" constant="1" id="AvH-ch-CoH"/>
+                                                <constraint firstItem="5xl-so-oXP" firstAttribute="leading" secondItem="0BK-CN-TU7" secondAttribute="trailing" constant="119" id="BBq-we-gdl"/>
+                                                <constraint firstItem="5xl-so-oXP" firstAttribute="top" secondItem="iXW-9M-AWp" secondAttribute="bottom" constant="20" id="BCf-6O-zVP"/>
+                                                <constraint firstItem="5xl-so-oXP" firstAttribute="top" secondItem="iXW-9M-AWp" secondAttribute="bottom" constant="20" id="IOH-Sg-jWJ"/>
                                                 <constraint firstItem="0BK-CN-TU7" firstAttribute="leading" secondItem="tI9-RU-GRv" secondAttribute="trailing" constant="87" id="JtU-I7-K2a"/>
+                                                <constraint firstItem="iXW-9M-AWp" firstAttribute="trailing" secondItem="L57-8G-auy" secondAttribute="trailingMargin" id="MYf-Fr-tsm"/>
                                                 <constraint firstItem="tI9-RU-GRv" firstAttribute="leading" secondItem="L57-8G-auy" secondAttribute="leadingMargin" id="NoL-Mc-A2L"/>
+                                                <constraint firstItem="iXW-9M-AWp" firstAttribute="top" secondItem="L57-8G-auy" secondAttribute="topMargin" id="ZCf-ru-EnQ"/>
                                                 <constraint firstAttribute="bottom" secondItem="0BK-CN-TU7" secondAttribute="bottom" id="b1V-qQ-BZo"/>
+                                                <constraint firstItem="5xl-so-oXP" firstAttribute="bottom" secondItem="L57-8G-auy" secondAttribute="bottomMargin" id="c8u-XE-I2l"/>
                                                 <constraint firstItem="tI9-RU-GRv" firstAttribute="top" secondItem="L57-8G-auy" secondAttribute="topMargin" id="eEE-Vb-wo5"/>
+                                                <constraint firstItem="iXW-9M-AWp" firstAttribute="leading" secondItem="0BK-CN-TU7" secondAttribute="trailing" constant="104" id="ede-xx-mKg"/>
                                                 <constraint firstItem="0BK-CN-TU7" firstAttribute="top" secondItem="L57-8G-auy" secondAttribute="top" id="pug-ZJ-gDc"/>
+                                                <constraint firstItem="iXW-9M-AWp" firstAttribute="top" secondItem="L57-8G-auy" secondAttribute="topMargin" id="uez-kM-kXB"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -243,6 +258,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Favorite Deselected" width="800" height="800"/>
         <image name="first" width="30" height="30"/>
         <image name="main-qimg-d7704f6cffa4dc8343df27f3b79203d5" width="120" height="173"/>
     </resources>
