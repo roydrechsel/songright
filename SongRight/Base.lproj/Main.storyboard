@@ -194,7 +194,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foO-6G-H3D">
-                                <rect key="frame" x="16" y="533" width="121" height="85"/>
+                                <rect key="frame" x="93" y="587" width="44" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="foO-6G-H3D" secondAttribute="height" multiplier="121:85" id="B0X-sY-1A4"/>
                                 </constraints>
@@ -208,13 +208,13 @@
                             <constraint firstItem="Rny-KX-APX" firstAttribute="leading" secondItem="b25-z1-Lx6" secondAttribute="leading" id="3QL-QD-rSd"/>
                             <constraint firstItem="8WY-l8-n6e" firstAttribute="top" secondItem="foO-6G-H3D" secondAttribute="bottom" id="4q9-kF-4hg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7VD-QP-tn0" secondAttribute="trailing" constant="129" id="8KI-gg-U6M"/>
-                            <constraint firstItem="foO-6G-H3D" firstAttribute="top" secondItem="Rny-KX-APX" secondAttribute="bottom" id="A6v-5V-EsH"/>
+                            <constraint firstItem="8WY-l8-n6e" firstAttribute="top" secondItem="foO-6G-H3D" secondAttribute="bottom" id="Ax5-R8-b9h"/>
                             <constraint firstItem="7VD-QP-tn0" firstAttribute="leading" secondItem="foO-6G-H3D" secondAttribute="trailing" constant="8" id="GyC-2q-4gd"/>
                             <constraint firstItem="Rny-KX-APX" firstAttribute="centerX" secondItem="7VD-QP-tn0" secondAttribute="centerX" id="KzK-iF-IK5"/>
-                            <constraint firstItem="foO-6G-H3D" firstAttribute="leading" secondItem="b25-z1-Lx6" secondAttribute="leadingMargin" id="WBH-N3-2o4"/>
                             <constraint firstItem="7VD-QP-tn0" firstAttribute="top" secondItem="Rny-KX-APX" secondAttribute="bottom" id="WgN-dS-l7v"/>
                             <constraint firstItem="8WY-l8-n6e" firstAttribute="top" secondItem="7VD-QP-tn0" secondAttribute="bottom" id="a8W-S6-lz1"/>
                             <constraint firstItem="7VD-QP-tn0" firstAttribute="leading" secondItem="b25-z1-Lx6" secondAttribute="leadingMargin" constant="129" id="dmR-v9-ukx"/>
+                            <constraint firstItem="7VD-QP-tn0" firstAttribute="leading" secondItem="foO-6G-H3D" secondAttribute="trailing" constant="8" id="hai-Lf-GDt"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Recordings" image="first" selectedImage="first" id="OYs-gz-ad3"/>

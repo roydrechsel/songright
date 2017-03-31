@@ -45,7 +45,7 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     
     @IBAction func playPauseButtonTapped(_ sender: Any) {
         
-//        if let playableRecording = recording?.managedObjectContext {
+//        if let playableRecording = recording?.managedObjectContext. {
 //         
 //            RecordingsController.shared.playRecording(recording: playableRecording)
 //        }

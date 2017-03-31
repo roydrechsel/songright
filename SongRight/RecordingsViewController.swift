@@ -19,23 +19,30 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var recordingTimer: UILabel!
     @IBOutlet weak var recordingButton: UIButton!
     
+    var timer: Timer!
+    
     var isRecording = false
-    
-    
-    //IF I MOVE ALL OF THIS STUFF INTO MY RECORDINGS CONTROLLER, WHERE DO I PUT MY OUTLETS?
     
     @IBAction func recordButtonTapped(_ sender: Any) {
         
         if isRecording == false {
+            recordingTimer.isHidden = false
             isRecording = true
             
             RecordingsController.shared.startRecording()
             recordingButton.setTitle("Stop", for: .normal)
             recordingButton.setTitleColor(UIColor.black, for: .normal)
-//            }
+            
+            self.timer = Timer.scheduledTimer(timeInterval: 0.1,
+                                              target: self,
+                                              selector: #selector(updateTimer(_:)),
+                                              userInfo: nil,
+                                              repeats: true)
+            
         } else {
             isRecording = false
-            if RecordingsController.shared.audioRecorder != nil && RecordingsController.shared.audioRecorder.isRecording {
+            guard let audioRecorder = RecordingsController.shared.audioRecorder else { return }
+            if audioRecorder.isRecording {
                 
                 let alertController = UIAlertController(title: "Save Recording", message: "Give it a great title:", preferredStyle: .alert)
                 
@@ -59,6 +66,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
                 RecordingsController.shared.finishRecording(success: true)
                 recordingButton.setTitle("Record", for: .normal)
                 recordingButton.setTitleColor(UIColor.red, for: .normal)
+                recordingTimer.isHidden = true
 
             } else {
                 return
@@ -90,6 +98,8 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        recordingTimer.isHidden = true
+        
         RecordingsController.shared.recordingSession = AVAudioSession.sharedInstance()
         
         do {
@@ -102,7 +112,6 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
                         self.recordingButton.setTitle("Record", for: .normal)
                         self.recordingButton.setTitleColor(UIColor.red, for: .normal)
                         
-                        //                        self.loadRecordingUI() //I already have a UI built in Storyboard, do I need this? How do I access what i have built? Put it in the loadRecordingUI func? Or reference it here?
                     } else {
                         //failed to record
                     }
@@ -124,14 +133,16 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func updateTimer(_ timer: Timer) {
-        
-        if RecordingsController.shared.audioRecorder.isRecording {
-            let min = Int(RecordingsController.shared.audioRecorder.currentTime / 60)
-            let sec = Int(RecordingsController.shared.audioRecorder.currentTime.truncatingRemainder(dividingBy: 60))
+        guard let audioRecorder = RecordingsController.shared.audioRecorder else { return }
+        if audioRecorder.isRecording {
+            
+            let min = Int(audioRecorder.currentTime / 60)
+            let sec = Int(audioRecorder.currentTime.truncatingRemainder(dividingBy: 60))
             let timerString = String(format: "%02d:%02d", min, sec)
             
             recordingTimer.text = timerString
-            RecordingsController.shared.audioRecorder.updateMeters()
+            audioRecorder.updateMeters()
+            
         }
     }
     

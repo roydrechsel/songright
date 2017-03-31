@@ -16,13 +16,14 @@ class RecordingsController: NSObject, ShareButtonTappedDelegate, AVAudioRecorder
     
     //    var recordButton: UIButton! //Do I need this when I already have that recordingButton IBOutlet?
     var recordingSession: AVAudioSession!
-    var audioRecorder: AVAudioRecorder!
+    var audioRecorder: AVAudioRecorder?
     var playAudio: AVAudioPlayer!
     var audioAsset: AVAsset!
     
     let recording = Recordings()
     
     func shareButtonTapped() {
+        
         
     }
     
@@ -107,8 +108,8 @@ class RecordingsController: NSObject, ShareButtonTappedDelegate, AVAudioRecorder
         
         do {
             RecordingsController.shared.audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
-            RecordingsController.shared.audioRecorder.delegate = self
-            RecordingsController.shared.audioRecorder.record()
+            RecordingsController.shared.audioRecorder?.delegate = self
+            RecordingsController.shared.audioRecorder?.record()
             
             //            recordingButton.setTitle("Tap to Stop", for: .normal)
             //            recordingButton.setTitleColor(UIColor.black, for: .normal)
@@ -122,7 +123,7 @@ class RecordingsController: NSObject, ShareButtonTappedDelegate, AVAudioRecorder
     
     func finishRecording(success: Bool) {
         
-        RecordingsController.shared.audioRecorder.stop()
+        RecordingsController.shared.audioRecorder?.stop()
         RecordingsController.shared.audioRecorder = nil
         
         if success {
