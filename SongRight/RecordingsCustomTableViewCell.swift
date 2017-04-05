@@ -45,10 +45,10 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     
     @IBAction func playPauseButtonTapped(_ sender: Any) {
         
-//        if let playableRecording = recording?.managedObjectContext. {
-//         
-//            RecordingsController.shared.playRecording(recording: playableRecording)
-//        }
+        if let playableRecording = RecordingsController.shared.recordings {
+         
+            RecordingsController.shared.playRecording(recording: playableRecording)
+        }
         setSessionPlayback()
         
     }
@@ -76,7 +76,7 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     
     func setSessionPlayback() {
         
-        let session: AVAudioSession = AVAudioSession.sharedInstance()
+        let session: AVAudioSession = RecordingsController.shared.recordingSession
         
         do {
             try session.setCategory(AVAudioSessionCategoryPlayback)

@@ -10,22 +10,20 @@ import UIKit
 import AVFoundation
 import CoreData
 
-class RecordingsController: NSObject, ShareButtonTappedDelegate, AVAudioRecorderDelegate {
+class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     static let shared = RecordingsController()
     
     //    var recordButton: UIButton! //Do I need this when I already have that recordingButton IBOutlet?
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder?
-    var playAudio: AVAudioPlayer!
+    var playAudio: AVAudioPlayer?
     var audioAsset: AVAsset!
+    var soundFileURL: URL!
     
     let recording = Recordings()
     
-    func shareButtonTapped() {
-        
-        
-    }
+    
     
     
     //MOVE ALL OF MY AVFOUNDATION STUFF FROM THE RECORDINGSVIEWCONTROLLER INTO THIS RECORDINGSCONTROLLER!
@@ -46,7 +44,7 @@ class RecordingsController: NSObject, ShareButtonTappedDelegate, AVAudioRecorder
     func loadRecordingsFromPersistentStore() -> [Recordings] {
         
         let fetchRequest: NSFetchRequest<Recordings> = Recordings.fetchRequest()
-
+        
         let moc = CoreDataStack.context
         
         do {
@@ -64,7 +62,7 @@ class RecordingsController: NSObject, ShareButtonTappedDelegate, AVAudioRecorder
 //        
 //        return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
 //    }()
-    
+
     
     func createRecording(recording: Recordings) {
         
@@ -77,15 +75,71 @@ class RecordingsController: NSObject, ShareButtonTappedDelegate, AVAudioRecorder
         saveToPersistentStorage()
     }
     
-    func playRecording(recording: Recordings) {
+    func playRecording(recording: [Recordings]) {
         
-        loadRecordingsFromPersistentStore()
-        playAudio.play()
+//        loadRecordingsFromPersistentStore()
+        
+        var selectedRecording: URL?
+        if self.audioRecorder != nil {
+            selectedRecording = self.audioRecorder?.url
+        } else {
+            selectedRecording = self.soundFileURL!
+        }
+        print("Playing \(selectedRecording)")
+        
+        do {
+            self.playAudio = try AVAudioPlayer(contentsOf: selectedRecording!)
+            //stopButton.isEnabled = true       I HAVEN'T WRITTEN FUNCTIONALITY FOR A STOP BUTTON, SINCE I'M SHARING PLAY/PAUSE/STOP
+            playAudio?.delegate = self
+            playAudio?.prepareToPlay()
+            playAudio?.volume = 1.0
+            playAudio?.play()
+        } catch let error as NSError {
+            self.playAudio = nil
+            print(error.localizedDescription)
+        }
+    }
+    
+    func setupRecorder() {
+        let format = DateFormatter()
+        format.dateFormat="yyyy-MM-dd-HH-mm-ss"
+        let currentFileName = "recording-\(format.string(from: Date())).m4a"
+        print(currentFileName)
+        
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        self.soundFileURL = documentsDirectory.appendingPathComponent(currentFileName)
+        print("writing to soundfile url: '\(soundFileURL!)'")
+        
+        if FileManager.default.fileExists(atPath: soundFileURL.absoluteString) {
+            // probably won't happen. want to do something about it?
+            print("soundfile \(soundFileURL.absoluteString) exists")
+        }
+        
+        
+        let recordSettings:[String : AnyObject] = [
+            AVFormatIDKey:             NSNumber(value: kAudioFormatAppleLossless),
+            AVEncoderAudioQualityKey : NSNumber(value:AVAudioQuality.max.rawValue),
+            AVEncoderBitRateKey :      NSNumber(value:320000),
+            AVNumberOfChannelsKey:     NSNumber(value:2),
+            AVSampleRateKey :          NSNumber(value:44100.0)
+        ]
+        
+        
+        do {
+            audioRecorder = try AVAudioRecorder(url: soundFileURL, settings: recordSettings)
+            audioRecorder?.delegate = self
+            audioRecorder?.isMeteringEnabled = true
+            audioRecorder?.prepareToRecord() // creates/overwrites the file at soundFileURL
+        } catch let error as NSError {
+            playAudio = nil
+            print(error.localizedDescription)
+        }
+        
     }
     
     func pauseRecording(recording: Recordings) {
         
-        playAudio.pause()
+        playAudio?.pause()
     }
     
     func getDocumentsDirectory() -> URL {
@@ -96,7 +150,6 @@ class RecordingsController: NSObject, ShareButtonTappedDelegate, AVAudioRecorder
     
     func startRecording() {
         
-        //THIS IS WRONG, I'M NOT USING THIS DOCUMENTS DIRECTORY, I'M USING CORE DATA
         let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
         
         let settings = [
