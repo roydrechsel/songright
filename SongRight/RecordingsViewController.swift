@@ -21,6 +21,18 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     
     var timer: Timer!
     
+    //NEED A recordingURL VAR, AND CONVERT THAT STRING TO A TYPE URL TO FETCH
+    //NEED A recordingURL VAR, AND CONVERT THAT STRING TO A TYPE URL TO FETCH
+    //NEED A recordingURL VAR, AND CONVERT THAT STRING TO A TYPE URL TO FETCH
+    //NEED A recordingURL VAR, AND CONVERT THAT STRING TO A TYPE URL TO FETCH
+    //NEED A recordingURL VAR, AND CONVERT THAT STRING TO A TYPE URL TO FETCH
+    //NEED A recordingURL VAR, AND CONVERT THAT STRING TO A TYPE URL TO FETCH
+    
+    var recordingURL: URL {
+        
+        
+    }
+    
     var isRecording = false
     
     @IBAction func recordButtonTapped(_ sender: Any) {
@@ -49,7 +61,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
                 let saveAction = UIAlertAction(title: "Save", style: .default, handler: { (action: UIAlertAction) -> Void in
                     
                     guard let newRecordingTitle = alertController.textFields?.first?.text else { return }
-                    let newRecording = Recordings(title: newRecordingTitle, timestamp: Date(), length: 6.66, isFavorite: false, context: CoreDataStack.context)
+                    let newRecording = Recordings(title: newRecordingTitle, timestamp: Date(), length: 6.66, isFavorite: false, recordingURL: , context: CoreDataStack.context)
                     RecordingsController.shared.createRecording(recording: newRecording)
                     
                     self.RecordingsTableView.reloadData()
@@ -76,7 +88,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     
     //TODO -- UPDATE activityItems TO BE AN ACTUAL RECORDING OBJECT TO SHARE, RATHER THAN JUST THE PLACEHOLDER recording.title THAT I'M SHARING RIGHT NOW
     func shareButtonTapped() {
-        let activityViewController = UIActivityViewController(activityItems: [recording.title], applicationActivities: .none)
+        let activityViewController = UIActivityViewController(activityItems: ["Andrew is Rad"], applicationActivities: .none)
         self.present(activityViewController, animated: true, completion: nil)
     }
     
@@ -97,6 +109,8 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        RecordingsController.shared.setupRecorder()
         
         recordingTimer.isHidden = true
         

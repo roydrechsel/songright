@@ -3,10 +3,11 @@
     <entity name="Recordings" representedClassName="Recordings" syncable="YES" codeGenerationType="class">
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="length" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="recordingURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Recordings" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="Recordings" positionX="-63" positionY="-18" width="128" height="120"/>
     </elements>
 </model>

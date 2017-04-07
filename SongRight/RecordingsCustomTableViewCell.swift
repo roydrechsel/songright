@@ -46,9 +46,10 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     @IBAction func playPauseButtonTapped(_ sender: Any) {
         
         if let playableRecording = RecordingsController.shared.recordings {
-         
+//            playPauseButton.imageView?.image = UIImage(cgImage: #imageLiteral(resourceName: "Pause Button") as! CGImage)
             RecordingsController.shared.playRecording(recording: playableRecording)
         }
+        
         setSessionPlayback()
         
     }

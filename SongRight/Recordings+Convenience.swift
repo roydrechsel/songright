@@ -19,7 +19,7 @@ extension Recordings {
 //    var length: Double
 //    var isFavorite: Bool
     
-    convenience init(title: String, timestamp: Date = Date(), length: Double, isFavorite: Bool, context: NSManagedObjectContext = CoreDataStack.context) {
+    convenience init(title: String, timestamp: Date = Date(), length: Double, isFavorite: Bool, recordingURL: String, context: NSManagedObjectContext = CoreDataStack.context) {
         
         self.init(context: context)
         
@@ -27,6 +27,7 @@ extension Recordings {
         self.timestamp = timestamp as NSDate?
         self.length = length
         self.isFavorite = isFavorite
+        self.recordingURL = recordingURL
     }
 }
 

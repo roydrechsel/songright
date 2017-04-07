@@ -100,6 +100,8 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
         }
     }
     
+    
+    
     func setupRecorder() {
         let format = DateFormatter()
         format.dateFormat="yyyy-MM-dd-HH-mm-ss"
@@ -150,7 +152,7 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
     
     func startRecording() {
         
-        let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+        let audioFilename = getDocumentsDirectory().appendingPathComponent("\(UUID().uuidString)-recording.m4a")
         
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -162,17 +164,30 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
         do {
             RecordingsController.shared.audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
             RecordingsController.shared.audioRecorder?.delegate = self
+            RecordingsController.shared.audioRecorder?.prepareToRecord()
             RecordingsController.shared.audioRecorder?.record()
             
             //            recordingButton.setTitle("Tap to Stop", for: .normal)
-            //            recordingButton.setTitleColor(UIColor.black, for: .normal)
-            //
-            
+            //            recordingButton.setTitleColor(UIColor.black, for: .normal)            
             
         } catch {
             finishRecording(success: false)
         }
     }
+    
+    //REPLACED MY startRecording METHOD WITH THE METHOD BELOW????????????????????????????????????????????????????????
+//    
+//    func record() {
+//        
+//        if playAudio != nil && playAudio?.isPlaying {
+//            
+//            playAudio?.stop()
+//        }
+//        
+//        if audioRecorder == nil {
+//            
+//        }
+//    }
     
     func finishRecording(success: Bool) {
         
