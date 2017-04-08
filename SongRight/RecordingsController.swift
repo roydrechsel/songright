@@ -19,7 +19,7 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
     var audioRecorder: AVAudioRecorder?
     var playAudio: AVAudioPlayer?
     var audioAsset: AVAsset!
-    var soundFileURL: URL!
+    var soundFileURL: URL?
     
     let recording = Recordings()
     
@@ -111,7 +111,7 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         self.soundFileURL = documentsDirectory.appendingPathComponent(currentFileName)
         print("writing to soundfile url: '\(soundFileURL!)'")
-        
+        guard let soundFileURL = soundFileURL else { return }
         if FileManager.default.fileExists(atPath: soundFileURL.absoluteString) {
             // probably won't happen. want to do something about it?
             print("soundfile \(soundFileURL.absoluteString) exists")
@@ -161,6 +161,8 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
         ]
         
+        self.soundFileURL = audioFilename
+        
         do {
             RecordingsController.shared.audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
             RecordingsController.shared.audioRecorder?.delegate = self
@@ -195,6 +197,8 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
         RecordingsController.shared.audioRecorder = nil
         
         if success {
+            
+            
             //            recordingButton.setTitle("Tap to Re-record", for: .normal)
             //            recordingButton.setTitleColor(UIColor.red, for: .normal)
             RecordingsController.shared.createRecording(recording: recording)

@@ -75,6 +75,7 @@ class RecordingsCustomTableViewCell: UITableViewCell {
         }
     }
     
+    
     func setSessionPlayback() {
         
         let session: AVAudioSession = RecordingsController.shared.recordingSession

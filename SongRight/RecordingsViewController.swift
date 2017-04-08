@@ -28,11 +28,9 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     //NEED A recordingURL VAR, AND CONVERT THAT STRING TO A TYPE URL TO FETCH
     //NEED A recordingURL VAR, AND CONVERT THAT STRING TO A TYPE URL TO FETCH
     
-    var recordingURL: URL {
-        
-        
-    }
+    //    open class func defaultDirectoryURL() -> URL
     
+
     var isRecording = false
     
     @IBAction func recordButtonTapped(_ sender: Any) {
@@ -54,14 +52,16 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         } else {
             isRecording = false
             guard let audioRecorder = RecordingsController.shared.audioRecorder else { return }
+
             if audioRecorder.isRecording {
+                RecordingsController.shared.finishRecording(success: true)
                 
                 let alertController = UIAlertController(title: "Save Recording", message: "Give it a great title:", preferredStyle: .alert)
                 
                 let saveAction = UIAlertAction(title: "Save", style: .default, handler: { (action: UIAlertAction) -> Void in
                     
-                    guard let newRecordingTitle = alertController.textFields?.first?.text else { return }
-                    let newRecording = Recordings(title: newRecordingTitle, timestamp: Date(), length: 6.66, isFavorite: false, recordingURL: , context: CoreDataStack.context)
+                    guard let newRecordingTitle = alertController.textFields?.first?.text, let soundFileURL = RecordingsController.shared.soundFileURL?.absoluteString else { return }
+                    let newRecording = Recordings(title: newRecordingTitle, timestamp: Date(), length: 6.66, isFavorite: false, recordingURL: soundFileURL, context: CoreDataStack.context)
                     RecordingsController.shared.createRecording(recording: newRecording)
                     
                     self.RecordingsTableView.reloadData()
@@ -75,7 +75,6 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
                 alertController.addAction(cancelAction)
                 
                 self.present(alertController, animated: true, completion: nil)
-                RecordingsController.shared.finishRecording(success: true)
                 recordingButton.setTitle("Record", for: .normal)
                 recordingButton.setTitleColor(UIColor.red, for: .normal)
                 recordingTimer.isHidden = true
@@ -86,7 +85,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    //TODO -- UPDATE activityItems TO BE AN ACTUAL RECORDING OBJECT TO SHARE, RATHER THAN JUST THE PLACEHOLDER recording.title THAT I'M SHARING RIGHT NOW
+    //TODO -- UPDATE activityItems TO BE AN ACTUAL RECORDING OBJECT TO SHARE, RATHER THAN JUST THE PLACEHOLDER THAT I'M SHARING RIGHT NOW
     func shareButtonTapped() {
         let activityViewController = UIActivityViewController(activityItems: ["Andrew is Rad"], applicationActivities: .none)
         self.present(activityViewController, animated: true, completion: nil)
