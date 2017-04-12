@@ -190,9 +190,10 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     // Override to support editing the table view.
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if let recordingToDelete = RecordingsController.shared.recordings?[indexPath.row] {
+            if let recordingToDelete = recordings?[indexPath.row] {
                 RecordingsController.shared.deleteRecording(recording: recordingToDelete)
             }
+            updateRecordingsFromRecordingsController()
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

@@ -29,6 +29,21 @@ extension Recordings {
         self.isFavorite = isFavorite
         self.recordingURL = recordingURL
     }
+    
+    var recordingUrlFromDocuments: String? {
+        get {
+            if let fileUrl = self.recordingURL, let url = NSURL(string: fileUrl), let fileName = url.lastPathComponent
+            {
+                let documentsDir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
+                let absoluteUrlString = documentsDir.appendingPathComponent(fileName)
+                
+                return absoluteUrlString
+                
+            }
+            
+            return nil
+        }
+    }
 }
 
 //

@@ -89,7 +89,7 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
 ////        }
 //        print("Playing \(selectedRecording)")
         
-        if let recordingCachedUrl = recording.recordingURL, let recordingUrl = NSURL(string: recordingCachedUrl) as? URL
+        if let recordingCachedUrl = recording.recordingUrlFromDocuments, let recordingUrl = NSURL(string: recordingCachedUrl) as? URL
         {
             do {
                 self.playAudio = try AVAudioPlayer(contentsOf: recordingUrl)
