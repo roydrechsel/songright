@@ -31,11 +31,11 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     var isFavorite = false
     
     var recording: Recordings?
-//        {
-//        didSet {
-//            updateViews()
-//        }
-//    }
+        {
+        didSet {
+            updateViews()
+        }
+    }
     
     func stringFromDate(date: Date) -> String {
         
@@ -82,7 +82,15 @@ class RecordingsCustomTableViewCell: UITableViewCell {
 //        date.text = recording.timestamp
 //        length.text = "6.66"
         
-//
+        if let record = recording
+        {
+            title.text =  record.title
+            date.text = stringFromDate(date: record.timestamp as! Date)
+            length.text = "6.66"
+            
+        }
+        
+
     }
 
     func setSessionPlayback() {

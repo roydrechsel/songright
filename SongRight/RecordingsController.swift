@@ -80,25 +80,29 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
         
 //        guard let soundFileURL = self.soundFileURL else { return }
         
-        var selectedRecording: URL?
-//        if self.audioRecorder != nil {
-//            selectedRecording = self.audioRecorder?.url
-//        } else {
-        guard let recordingURL = soundFileURL?.absoluteString else { return }
-            selectedRecording = URL(string: recordingURL)
-//        }
-        print("Playing \(selectedRecording)")
+//        var selectedRecording: URL?
+////        if self.audioRecorder != nil {
+////            selectedRecording = self.audioRecorder?.url
+////        } else {
+//        guard let recordingURL = soundFileURL?.absoluteString else { return }
+//            selectedRecording = URL(string: recordingURL)
+////        }
+//        print("Playing \(selectedRecording)")
         
-        do {
-            self.playAudio = try AVAudioPlayer(contentsOf: selectedRecording!)
-            //stopButton.isEnabled = true       I HAVEN'T WRITTEN FUNCTIONALITY FOR A STOP BUTTON, SINCE I'M SHARING PLAY/PAUSE/STOP
-            playAudio?.delegate = self
-            playAudio?.prepareToPlay()
-            playAudio?.volume = 1.0
-            playAudio?.play()
-        } catch let error as NSError {
-            self.playAudio = nil
-            print(error.localizedDescription)
+        if let recordingCachedUrl = recording.recordingURL, let recordingUrl = NSURL(string: recordingCachedUrl) as? URL
+        {
+            do {
+                self.playAudio = try AVAudioPlayer(contentsOf: recordingUrl)
+                //stopButton.isEnabled = true       I HAVEN'T WRITTEN FUNCTIONALITY FOR A STOP BUTTON, SINCE I'M SHARING PLAY/PAUSE/STOP
+                playAudio?.delegate = self
+                playAudio?.prepareToPlay()
+                playAudio?.volume = 1.0
+                playAudio?.play()
+            } catch let error as NSError {
+                self.playAudio = nil
+                print(error.localizedDescription)
+            }
+            
         }
     }
     
@@ -110,8 +114,8 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
         let currentFileName = "recording-\(format.string(from: Date())).m4a"
         print(currentFileName)
         
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        self.soundFileURL = documentsDirectory.appendingPathComponent(currentFileName)
+        let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
+        self.soundFileURL = URL(string: documentsDirectory.appendingPathComponent(currentFileName))
         print("writing to soundfile url: '\(soundFileURL!)'")
         guard let soundFileURL = soundFileURL else { return }
         if FileManager.default.fileExists(atPath: soundFileURL.absoluteString) {

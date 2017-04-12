@@ -19,6 +19,8 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var recordingTimer: UILabel!
     @IBOutlet weak var recordingButton: UIButton!
     
+    private var recordings: [Recordings]?
+    
     var timer: Timer!    
 
     var isRecording = false
@@ -48,7 +50,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
                 
                 let alertController = UIAlertController(title: "Save Recording", message: "Give it a great title:", preferredStyle: .alert)
                 
-                let saveAction = UIAlertAction(title: "Save", style: .default, handler: { (action: UIAlertAction) -> Void in
+                let saveAction = UIAlertAction(title: "Save", style: .default, handler: { [unowned self] (action: UIAlertAction) -> Void in
                     
                     guard let newRecordingTitle = alertController.textFields?.first?.text, let soundFileURL = RecordingsController.shared.soundFileURL?.absoluteString else { return }
                     let newRecording = Recordings(title: newRecordingTitle,
@@ -59,6 +61,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
                                                   context: CoreDataStack.context)
                     RecordingsController.shared.createRecording(recording: newRecording)
                     
+                    self.updateRecordingsFromRecordingsController()
                     self.RecordingsTableView.reloadData()
                 })
                 
@@ -134,8 +137,15 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         
     }
     
+    private func updateRecordingsFromRecordingsController()
+    {
+        recordings = RecordingsController.shared.recordings?.filter({ $0.recordingURL != nil && $0.recordingURL!.characters.count > 0 })
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        updateRecordingsFromRecordingsController()
         RecordingsTableView.reloadData()
     }
     
@@ -159,18 +169,18 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         //        return 1
-        return RecordingsController.shared.recordings!.count
+        return recordings?.count ?? 0
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "recordingCell", for: indexPath) as? RecordingsCustomTableViewCell else { return UITableViewCell() }
         
-        let recording = RecordingsController.shared.recordings?[indexPath.row]
+        let recording = recordings?[indexPath.row]
         cell.recording = recording
-        cell.date.text = getStringFromDate(date: recording?.timestamp as! Date)
-        cell.length.text = "6.66"
-        cell.title.text = recording?.title
+//        cell.date.text = getStringFromDate(date: recording?.timestamp as! Date)
+//        cell.length.text = "6.66"
+//        cell.title.text = recording?.title
 //        cell.backgroundColor = UIColor.white
         cell.delegate = self
         
