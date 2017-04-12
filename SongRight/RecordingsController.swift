@@ -24,8 +24,6 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
     let recording = Recordings()
     
     
-    
-    
     //MOVE ALL OF MY AVFOUNDATION STUFF FROM THE RECORDINGSVIEWCONTROLLER INTO THIS RECORDINGSCONTROLLER!
     //MOVE ALL OF MY AVFOUNDATION STUFF FROM THE RECORDINGSVIEWCONTROLLER INTO THIS RECORDINGSCONTROLLER!
     //MOVE ALL OF MY AVFOUNDATION STUFF FROM THE RECORDINGSVIEWCONTROLLER INTO THIS RECORDINGSCONTROLLER!
@@ -44,6 +42,7 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
     func loadRecordingsFromPersistentStore() -> [Recordings] {
         
         let fetchRequest: NSFetchRequest<Recordings> = Recordings.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
         
         let moc = CoreDataStack.context
         
@@ -75,16 +74,19 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
         saveToPersistentStorage()
     }
     
-    func playRecording(recording: [Recordings]) {
+    func playRecording(recording: Recordings) {
         
 //        loadRecordingsFromPersistentStore()
         
+//        guard let soundFileURL = self.soundFileURL else { return }
+        
         var selectedRecording: URL?
-        if self.audioRecorder != nil {
-            selectedRecording = self.audioRecorder?.url
-        } else {
-            selectedRecording = self.soundFileURL!
-        }
+//        if self.audioRecorder != nil {
+//            selectedRecording = self.audioRecorder?.url
+//        } else {
+        guard let recordingURL = soundFileURL?.absoluteString else { return }
+            selectedRecording = URL(string: recordingURL)
+//        }
         print("Playing \(selectedRecording)")
         
         do {
@@ -133,6 +135,7 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
             audioRecorder?.isMeteringEnabled = true
             audioRecorder?.prepareToRecord() // creates/overwrites the file at soundFileURL
         } catch let error as NSError {
+            finishRecording(success: false)
             playAudio = nil
             print(error.localizedDescription)
         }
@@ -144,52 +147,42 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
         playAudio?.pause()
     }
     
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentsDirectory = paths[0]
-        return documentsDirectory
-    }
+//    func getDocumentsDirectory() -> URL {
+//        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        let documentsDirectory = paths[0]
+//        return documentsDirectory
+//    }
     
     func startRecording() {
         
-        let audioFilename = getDocumentsDirectory().appendingPathComponent("\(UUID().uuidString)-recording.m4a")
+        //TO DO: Add the recording.title to this appendingPathComponent somehow.. it complains because I try to assign the title before the user has added a title (I think).
+//        let audioFilename = getDocumentsDirectory().appendingPathComponent("\(UUID().uuidString)-recording.m4a")
+//        
+//        let settings = [
+//            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+//            AVSampleRateKey: 12000,
+//            AVNumberOfChannelsKey: 1,
+//            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+//        ]
+//        
+//        self.soundFileURL = audioFilename
         
-        let settings = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 12000,
-            AVNumberOfChannelsKey: 1,
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-        ]
-        
-        self.soundFileURL = audioFilename
-        
+        self.setupRecorder()
+
+//
         do {
-            RecordingsController.shared.audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+//            RecordingsController.shared.audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
             RecordingsController.shared.audioRecorder?.delegate = self
             RecordingsController.shared.audioRecorder?.prepareToRecord()
             RecordingsController.shared.audioRecorder?.record()
             
-            //            recordingButton.setTitle("Tap to Stop", for: .normal)
-            //            recordingButton.setTitleColor(UIColor.black, for: .normal)            
-            
-        } catch {
-            finishRecording(success: false)
         }
+        
+//        catch {
+//            finishRecording(success: false)
+//        }
     }
     
-    //REPLACED MY startRecording METHOD WITH THE METHOD BELOW????????????????????????????????????????????????????????
-//    
-//    func record() {
-//        
-//        if playAudio != nil && playAudio?.isPlaying {
-//            
-//            playAudio?.stop()
-//        }
-//        
-//        if audioRecorder == nil {
-//            
-//        }
-//    }
     
     func finishRecording(success: Bool) {
         
@@ -198,13 +191,9 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
         
         if success {
             
-            
-            //            recordingButton.setTitle("Tap to Re-record", for: .normal)
-            //            recordingButton.setTitleColor(UIColor.red, for: .normal)
             RecordingsController.shared.createRecording(recording: recording)
         } else {
-            //            recordingButton.setTitle("Tap to Record", for: .normal)
-            //            recordingButton.setTitleColor(UIColor.blue, for: .normal)
+            
             RecordingsController.shared.deleteRecording(recording: recording)
         }
         

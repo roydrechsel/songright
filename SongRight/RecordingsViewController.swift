@@ -13,23 +13,13 @@ import CoreData
 class RecordingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioRecorderDelegate, ShareButtonTappedDelegate, NSFetchedResultsControllerDelegate {
     
     //    let recording = Recordings(title: "My next single!", length: 2, isFavorite: true)?
-    let recording = Recordings()
+//    let recording = Recordings()
     
     @IBOutlet weak var RecordingsTableView: UITableView!
     @IBOutlet weak var recordingTimer: UILabel!
     @IBOutlet weak var recordingButton: UIButton!
     
-    var timer: Timer!
-    
-    //NEED A recordingURL VAR, AND CONVERT THAT STRING TO A TYPE URL TO FETCH
-    //NEED A recordingURL VAR, AND CONVERT THAT STRING TO A TYPE URL TO FETCH
-    //NEED A recordingURL VAR, AND CONVERT THAT STRING TO A TYPE URL TO FETCH
-    //NEED A recordingURL VAR, AND CONVERT THAT STRING TO A TYPE URL TO FETCH
-    //NEED A recordingURL VAR, AND CONVERT THAT STRING TO A TYPE URL TO FETCH
-    //NEED A recordingURL VAR, AND CONVERT THAT STRING TO A TYPE URL TO FETCH
-    
-    //    open class func defaultDirectoryURL() -> URL
-    
+    var timer: Timer!    
 
     var isRecording = false
     
@@ -61,7 +51,12 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
                 let saveAction = UIAlertAction(title: "Save", style: .default, handler: { (action: UIAlertAction) -> Void in
                     
                     guard let newRecordingTitle = alertController.textFields?.first?.text, let soundFileURL = RecordingsController.shared.soundFileURL?.absoluteString else { return }
-                    let newRecording = Recordings(title: newRecordingTitle, timestamp: Date(), length: 6.66, isFavorite: false, recordingURL: soundFileURL, context: CoreDataStack.context)
+                    let newRecording = Recordings(title: newRecordingTitle,
+                                                  timestamp: Date(),
+                                                  length: 6.66,
+                                                  isFavorite: false,
+                                                  recordingURL: soundFileURL,
+                                                  context: CoreDataStack.context)
                     RecordingsController.shared.createRecording(recording: newRecording)
                     
                     self.RecordingsTableView.reloadData()
@@ -95,7 +90,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     func getStringFromDate(date: Date) -> String {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yy, H:mm"
+        dateFormatter.dateFormat = "MM/dd/yy H:mm"
         return dateFormatter.string(from: date)
     }
     
@@ -109,7 +104,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        RecordingsController.shared.setupRecorder()
+//        RecordingsController.shared.setupRecorder()
         
         recordingTimer.isHidden = true
         
@@ -172,10 +167,10 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "recordingCell", for: indexPath) as? RecordingsCustomTableViewCell else { return UITableViewCell() }
         
         let recording = RecordingsController.shared.recordings?[indexPath.row]
-        cell.title.text = recording?.title
-        cell.date.text = getStringFromDate(date: Date())
-        //        cell.length.text = recording.length
-        //        cell.backgroundColor = UIColor.brown
+        cell.recording = recording
+        cell.date.text = getStringFromDate(date: recording?.timestamp as! Date)
+        cell.length.text = "6.66"
+//        cell.backgroundColor = UIColor.white
         cell.delegate = self
         
         return cell

@@ -30,6 +30,20 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     
     var isFavorite = false
     
+    var recording: Recordings?
+//        {
+//        didSet {
+//            updateViews()
+//        }
+//    }
+    
+    func stringFromDate(date: Date) -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy H:mm"
+        return dateFormatter.string(from: date)
+    }
+    
     @IBAction func favoriteButtonTapped(_ sender: Any) {
         
         if isFavorite == false {
@@ -45,7 +59,7 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     
     @IBAction func playPauseButtonTapped(_ sender: Any) {
         
-        if let playableRecording = RecordingsController.shared.recordings {
+        if let playableRecording = self.recording {
 //            playPauseButton.imageView?.image = UIImage(cgImage: #imageLiteral(resourceName: "Pause Button") as! CGImage)
             RecordingsController.shared.playRecording(recording: playableRecording)
         }
@@ -61,21 +75,16 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     
     
     func updateViews() {
+//        guard let recording = recording else { return }
+//            , let stringFromDate = stringFromDate else { return }
+//        title.text = recording.title
+//        date.text = stringFromDate
+//        date.text = recording.timestamp
+//        length.text = "6.66"
         
-        title.text = recording?.title
-//        date. = recording?.timestamp
-//        length.text = recording?.length
-//        
+//
     }
-    
-    var recording: Recordings? {
-        
-        didSet {
-            updateViews()
-        }
-    }
-    
-    
+
     func setSessionPlayback() {
         
         let session: AVAudioSession = RecordingsController.shared.recordingSession
