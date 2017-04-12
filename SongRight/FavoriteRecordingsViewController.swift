@@ -11,7 +11,6 @@ import UIKit
 class FavoriteRecordingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var FavoriteRecordingsTableView: UITableView!
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
