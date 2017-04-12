@@ -170,6 +170,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         cell.recording = recording
         cell.date.text = getStringFromDate(date: recording?.timestamp as! Date)
         cell.length.text = "6.66"
+        cell.title.text = recording?.title
 //        cell.backgroundColor = UIColor.white
         cell.delegate = self
         
