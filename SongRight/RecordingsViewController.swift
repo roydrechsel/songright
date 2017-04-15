@@ -10,20 +10,64 @@ import UIKit
 import AVFoundation
 import CoreData
 
-class RecordingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioRecorderDelegate, ShareButtonTappedDelegate, NSFetchedResultsControllerDelegate {
+class RecordingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioRecorderDelegate, ShareButtonTappedDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
     
     //    let recording = Recordings(title: "My next single!", length: 2, isFavorite: true)?
 //    let recording = Recordings()
     
+//    let searchBar = UISearchBar()
     @IBOutlet weak var RecordingsTableView: UITableView!
     @IBOutlet weak var recordingTimer: UILabel!
     @IBOutlet weak var recordingButton: UIButton!
     
     private var recordings: [Recordings]?
     
-    var timer: Timer!    
+    var timer: Timer?
+    
+    var searchBarActive: Bool = false
+    var filteredRecordings = [Recordings]()
 
     var isRecording = false
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        definesPresentationContext = true
+        searchController.dimsBackgroundDuringPresentation = false
+        RecordingsTableView.tableHeaderView = searchController.searchBar
+        
+        
+        recordingTimer.isHidden = true
+        
+        RecordingsController.shared.recordingSession = AVAudioSession.sharedInstance()
+        
+        do {
+            try RecordingsController.shared.recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try RecordingsController.shared.recordingSession.setActive(true)
+            RecordingsController.shared.recordingSession.requestRecordPermission() { [unowned self] allowed in
+                DispatchQueue.main.async {
+                    if allowed {
+                        self.recordingButton.addTarget(self, action: #selector(self.recordButtonTapped), for: .touchUpInside)
+                        self.recordingButton.setTitle("Record", for: .normal)
+                        self.recordingButton.setTitleColor(UIColor.red, for: .normal)
+                        
+                    } else {
+                        //failed to record
+                    }
+                }
+            }
+        } catch {
+            //failed to record
+        }
+        
+        RecordingsTableView.delegate = self
+        RecordingsTableView.dataSource = self
+        
+    }
     
     @IBAction func recordButtonTapped(_ sender: Any) {
         
@@ -85,57 +129,22 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     
     //TODO -- UPDATE activityItems TO BE AN ACTUAL RECORDING OBJECT TO SHARE, RATHER THAN JUST THE PLACEHOLDER THAT I'M SHARING RIGHT NOW
     func shareButtonTapped() {
-        let activityViewController = UIActivityViewController(activityItems: ["Andrew is Rad"], applicationActivities: .none)
+//        let recording = RecordingsController.shared.recording
+        let activityViewController = UIActivityViewController(activityItems: ["St Vincent rules"], applicationActivities: .none)
         self.present(activityViewController, animated: true, completion: nil)
     }
     
     
-    func getStringFromDate(date: Date) -> String {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yy H:mm"
-        return dateFormatter.string(from: date)
-    }
+//    func getStringFromDate(date: Date) -> String {
+//        
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "MM/dd/yy H:mm"
+//        return dateFormatter.string(from: date)
+//    }
     
     
-    //    func loadRecordingUI() {
-    //        recordingButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
-    //        recordingButton.setTitle("Record", for: .normal)
-    //        recordingButton.setTitleColor(UIColor.purple, for: .normal)
-    //    }
+   
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-//        RecordingsController.shared.setupRecorder()
-        
-        recordingTimer.isHidden = true
-        
-        RecordingsController.shared.recordingSession = AVAudioSession.sharedInstance()
-        
-        do {
-            try RecordingsController.shared.recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-            try RecordingsController.shared.recordingSession.setActive(true)
-            RecordingsController.shared.recordingSession.requestRecordPermission() { [unowned self] allowed in
-                DispatchQueue.main.async {
-                    if allowed {
-                        self.recordingButton.addTarget(self, action: #selector(self.recordButtonTapped), for: .touchUpInside)
-                        self.recordingButton.setTitle("Record", for: .normal)
-                        self.recordingButton.setTitleColor(UIColor.red, for: .normal)
-                        
-                    } else {
-                        //failed to record
-                    }
-                }
-            }
-        } catch {
-            //failed to record
-        }
-        
-        RecordingsTableView.delegate = self
-        RecordingsTableView.dataSource = self
-        
-    }
     
     private func updateRecordingsFromRecordingsController()
     {
@@ -146,7 +155,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         super.viewWillAppear(animated)
         
         updateRecordingsFromRecordingsController()
-        RecordingsTableView.reloadData()
+        self.RecordingsTableView.reloadData()
     }
     
     
@@ -165,16 +174,29 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         //        return 1
-        return recordings?.count ?? 0
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            return filteredRecordings.count
+        } else {
+            return recordings?.count ?? 0
+        }
+        
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "recordingCell", for: indexPath) as? RecordingsCustomTableViewCell else { return UITableViewCell() }
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            let recording = filteredRecordings[indexPath.row]
+            cell.recording = recording
+            cell.delegate = self
+            
+            return cell
+        } else {
         
         let recording = recordings?[indexPath.row]
         cell.recording = recording
@@ -185,6 +207,8 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         cell.delegate = self
         
         return cell
+            
+        }
     }
     
     // Override to support editing the table view.
@@ -196,6 +220,17 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
             updateRecordingsFromRecordingsController()
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    
+    func filterContentForSearchText(_ searchText: String) {
+        
+        if let recordings = recordings {
+        filteredRecordings = recordings.filter { recordings  in
+            return (recordings.title?.lowercased().contains(searchText.lowercased()))!
+            }
+        }
+        
+        self.RecordingsTableView.reloadData()
     }
     
     //MARK: - NSFetchResultsControllerDelegate
@@ -219,4 +254,12 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     //        }
     //    }
     
+}
+
+extension RecordingsViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        //let searchBar = searchController.searchBar
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
 }

@@ -53,7 +53,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xTY-qk-ylq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1056.8" y="1886.8065967016494"/>
+            <point key="canvasLocation" x="1057" y="2017"/>
         </scene>
         <!--Recordings-->
         <scene sceneID="AzJ-zY-R06">
@@ -67,14 +67,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search for Title" translatesAutoresizingMaskIntoConstraints="NO" id="60k-3p-U6u">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="I8M-ay-imG" id="9Ve-uQ-8YS"/>
-                                </connections>
-                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rny-KX-APX">
                                 <rect key="frame" x="0.0" y="64" width="375" height="469"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -229,7 +221,6 @@
                 <searchDisplayController id="xCp-Do-5wm">
                     <connections>
                         <outlet property="delegate" destination="I8M-ay-imG" id="9TW-I0-EAJ"/>
-                        <outlet property="searchBar" destination="60k-3p-U6u" id="mKx-1u-trs"/>
                         <outlet property="searchContentsController" destination="I8M-ay-imG" id="2sf-fk-bvI"/>
                         <outlet property="searchResultsDataSource" destination="I8M-ay-imG" id="pYn-tY-YlQ"/>
                         <outlet property="searchResultsDelegate" destination="I8M-ay-imG" id="grx-vR-hSv"/>

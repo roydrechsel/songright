@@ -11,7 +11,7 @@ import AVFoundation
 import CoreData
 
 class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
-    
+        
     static let shared = RecordingsController()
     
     //    var recordButton: UIButton! //Do I need this when I already have that recordingButton IBOutlet?

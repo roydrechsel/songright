@@ -111,13 +111,6 @@ class RecordingsCustomTableViewCell: UITableViewCell {
         }
     }
     
-    func play() {
-        
-//        var recording:
-//        if self.audioRecorder != nil {
-//            recording = self.audioRecorder.recording
-//        }
-    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
