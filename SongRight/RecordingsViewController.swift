@@ -12,10 +12,6 @@ import CoreData
 
 class RecordingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioRecorderDelegate, ShareButtonTappedDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
     
-    //    let recording = Recordings(title: "My next single!", length: 2, isFavorite: true)?
-//    let recording = Recordings()
-    
-//    let searchBar = UISearchBar()
     @IBOutlet weak var RecordingsTableView: UITableView!
     @IBOutlet weak var recordingTimer: UILabel!
     @IBOutlet weak var recordingButton: UIButton!
@@ -235,27 +231,6 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         
         self.RecordingsTableView.reloadData()
     }
-    
-    //MARK: - NSFetchResultsControllerDelegate
-    
-    //    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-    //        switch type {
-    //        case .delete:
-    //            guard let indexPath = indexPath else { return }
-    //            tableView.deleteRows(at: [indexPath], with: .fade)
-    //        case .insert:
-    //            guard let newIndexPath = newIndexPath else { return }
-    //            tableView.insertRows(at: [newIndexPath], with: .top)
-    //        case.update:
-    //            guard let indexPath = indexPath else { return }
-    //            tableView.reloadRows(at: [indexPath], with: .automatic)
-    //        case.move:
-    //            guard let indexPath = indexPath,
-    //                let newIndexPath = newIndexPath else { return }
-    //            tableView.moveRow(at: indexPath, to: newIndexPath)
-    //            
-    //        }
-    //    }
     
 }
 

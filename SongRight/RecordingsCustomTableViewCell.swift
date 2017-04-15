@@ -49,11 +49,19 @@ class RecordingsCustomTableViewCell: UITableViewCell {
         if isFavorite == false {
             favoriteButton.setBackgroundImage(UIImage(named: "Favorite Selected"), for: UIControlState.normal)
                 isFavorite = true
+            if let recording = recording {
+                recording.isFavorite = true
+            }
             
         } else {
             favoriteButton.setBackgroundImage(UIImage(named: "Favorite Deselected"), for: UIControlState.normal)
                 isFavorite = false
+            if let recording = recording {
+                recording.isFavorite = false
+            }
         }
+        
+        RecordingsController.shared.saveToPersistentStorage()
     }
     
     @IBAction func playPauseButtonTapped(_ sender: Any) {
