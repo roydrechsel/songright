@@ -71,11 +71,13 @@ class RecordingsCustomTableViewCell: UITableViewCell {
         if let playableRecording = self.recording {
             
             if isPlaying == false {
-                playPauseButton.titleLabel?.text = "Stop"
+                playPauseButton.setTitle("Stop", for: .normal)
+                playPauseButton.setTitleColor(UIColor.black, for: .normal)
                 isPlaying = true
                 RecordingsController.shared.playRecording(recording: playableRecording)
             } else {
-                playPauseButton.titleLabel?.text = "Play"
+                playPauseButton.setTitle("Play", for: .normal)
+                playPauseButton.setTitleColor(UIColor.blue, for: .normal)
                 isPlaying = false
                 RecordingsController.shared.pauseRecording(recording: playableRecording)
             }
@@ -104,6 +106,8 @@ class RecordingsCustomTableViewCell: UITableViewCell {
             title.text =  recording.title
             date.text = stringFromDate(date: recording.timestamp as! Date)
             length.text = "6.66"
+            playPauseButton.setTitle("Play", for: .normal)
+            playPauseButton.setTitleColor(UIColor.blue, for: .normal)
             
             if recording.isFavorite == true {
                 favoriteButton.setBackgroundImage(UIImage(named: "Favorite Selected"), for: UIControlState.normal)
