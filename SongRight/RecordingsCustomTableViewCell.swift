@@ -47,12 +47,11 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     @IBAction func favoriteButtonTapped(_ sender: Any) {
         
         if isFavorite == false {
-            
-            favoriteButton.imageView?.image = UIImage(cgImage: #imageLiteral(resourceName: "Favorite Selected") as! CGImage)
-            isFavorite = true
+            favoriteButton.setBackgroundImage(UIImage(named: "Favorite Selected"), for: UIControlState.normal)
+                isFavorite = true
             
         } else {
-                favoriteButton.imageView?.image = UIImage(cgImage: #imageLiteral(resourceName: "Favorite Deselected") as! CGImage)
+            favoriteButton.setBackgroundImage(UIImage(named: "Favorite Deselected"), for: UIControlState.normal)
                 isFavorite = false
         }
     }

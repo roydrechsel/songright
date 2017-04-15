@@ -40,6 +40,9 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         searchController.dimsBackgroundDuringPresentation = false
         RecordingsTableView.tableHeaderView = searchController.searchBar
         
+        searchController.searchBar.sizeToFit()
+        searchController.searchBar.placeholder = "Search for Title"
+        
         
         recordingTimer.isHidden = true
         
