@@ -29,6 +29,7 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
     
     var isFavorite = false
+    var isPlaying = false
     
     var recording: Recordings?
         {
@@ -60,6 +61,7 @@ class RecordingsCustomTableViewCell: UITableViewCell {
                 recording.isFavorite = false
             }
         }
+        //WRITE A FUNCTION IN MY RECORDINGSCONTROLLER THAT DOES THIS WORK, THEN CALL THAT FUNCTION HERE
         
         RecordingsController.shared.saveToPersistentStorage()
     }
@@ -67,8 +69,16 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     @IBAction func playPauseButtonTapped(_ sender: Any) {
         
         if let playableRecording = self.recording {
-//            playPauseButton.imageView?.image = UIImage(cgImage: #imageLiteral(resourceName: "Pause Button") as! CGImage)
-            RecordingsController.shared.playRecording(recording: playableRecording)
+            
+            if isPlaying == false {
+                playPauseButton.titleLabel?.text = "Stop"
+                isPlaying = true
+                RecordingsController.shared.playRecording(recording: playableRecording)
+            } else {
+                playPauseButton.titleLabel?.text = "Play"
+                isPlaying = false
+                RecordingsController.shared.pauseRecording(recording: playableRecording)
+            }
         }
         
         setSessionPlayback()
@@ -89,15 +99,16 @@ class RecordingsCustomTableViewCell: UITableViewCell {
 //        date.text = recording.timestamp
 //        length.text = "6.66"
         
-        if let record = recording
+        if let recording = recording
         {
-            title.text =  record.title
-            date.text = stringFromDate(date: record.timestamp as! Date)
+            title.text =  recording.title
+            date.text = stringFromDate(date: recording.timestamp as! Date)
             length.text = "6.66"
             
+            if recording.isFavorite == true {
+                favoriteButton.setBackgroundImage(UIImage(named: "Favorite Selected"), for: UIControlState.normal)
+            }
         }
-        
-
     }
 
     func setSessionPlayback() {
