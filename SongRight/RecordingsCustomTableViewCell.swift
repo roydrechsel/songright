@@ -27,6 +27,7 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     @IBOutlet weak var length: UILabel!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
     
     var isFavorite = false
     var isPlaying = false

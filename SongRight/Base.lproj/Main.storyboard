@@ -32,7 +32,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vvx-3u-8SC" id="eKG-cB-fOR">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="L94-WO-62o">
@@ -170,26 +170,26 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sdm-th-sRR" id="L57-8G-auy">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="tI9-RU-GRv">
-                                                    <rect key="frame" x="8" y="8" width="72.5" height="72.5"/>
+                                                    <rect key="frame" x="8" y="8" width="72" height="72"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Title" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnm-FL-MH6">
-                                                            <rect key="frame" x="0.0" y="0.0" width="72.5" height="14.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="72" height="15"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Date" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Zx-xY-8GB">
-                                                            <rect key="frame" x="0.0" y="18.5" width="72.5" height="36.5"/>
+                                                            <rect key="frame" x="0.0" y="19" width="72" height="35"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Length" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rBe-X8-uoa">
-                                                            <rect key="frame" x="0.0" y="59" width="72.5" height="13.5"/>
+                                                            <rect key="frame" x="0.0" y="58" width="72" height="14"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -200,7 +200,7 @@
                                                     </constraints>
                                                 </stackView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xl-so-oXP" userLabel="Share Button">
-                                                    <rect key="frame" x="352" y="58" width="15" height="23.5"/>
+                                                    <rect key="frame" x="352" y="58" width="15" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="5xl-so-oXP" secondAttribute="height" multiplier="15:23" id="3pu-sM-R6R"/>
                                                     </constraints>
@@ -254,6 +254,7 @@
                                             <outlet property="favoriteButton" destination="iXW-9M-AWp" id="Adf-F0-qJl"/>
                                             <outlet property="length" destination="rBe-X8-uoa" id="omW-q3-jfP"/>
                                             <outlet property="playPauseButton" destination="0BK-CN-TU7" id="Xm6-1u-vGB"/>
+                                            <outlet property="shareButton" destination="5xl-so-oXP" id="CcQ-Ej-NaL"/>
                                             <outlet property="title" destination="xnm-FL-MH6" id="Bwl-SE-Rbv"/>
                                         </connections>
                                     </tableViewCell>

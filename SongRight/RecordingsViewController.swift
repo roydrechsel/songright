@@ -22,6 +22,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     
     var searchBarActive: Bool = false
     var filteredRecordings = [Recordings]()
+//    let recording = RecordingsController.shared.recordings?.filter({ $0.recordingURL != nil && $0.recordingURL!.characters.count > 0 })
 
     var isRecording = false
     
@@ -129,7 +130,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     //TODO -- UPDATE activityItems TO BE AN ACTUAL RECORDING OBJECT TO SHARE, RATHER THAN JUST THE PLACEHOLDER THAT I'M SHARING RIGHT NOW
     func shareButtonTapped() {
 //        let recording = RecordingsController.shared.recording
-        let activityViewController = UIActivityViewController(activityItems: ["St Vincent rules"], applicationActivities: .none)
+        let activityViewController = UIActivityViewController(activityItems: ["How do I share the actual recording?"], applicationActivities: .none)
         self.present(activityViewController, animated: true, completion: nil)
     }
     
@@ -174,8 +175,6 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        //        return 1
         
         if searchController.isActive && searchController.searchBar.text != "" {
             return filteredRecordings.count
@@ -198,17 +197,62 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         } else {
         
         let recording = recordings?[indexPath.row]
-        cell.recording = recording
-//        cell.date.text = getStringFromDate(date: recording?.timestamp as! Date)
-//        cell.length.text = "6.66"
-//        cell.title.text = recording?.title
-//        cell.backgroundColor = UIColor.white
-        cell.delegate = self
+        
+            cell.recording = recording
+            cell.delegate = self
+            
+//            cell.shareButton.isHidden = true
+//            cell.playPauseButton.isHidden = true
+//            cell.favoriteButton.isHidden = false
+//            cell.title.isHidden = false
+//            cell.date.isHidden = false
+//            cell.length.isHidden = false
         
         return cell
             
         }
     }
+    
+    //TRYING TO GET THE CELL TO DISPLAY THE PLAY BUTTON AND THE SHARE BUTTON WHEN TAPPED.. IT WORKS, BUT I CAN'T DESELECT THE ROW... 
+    //TRYING TO GET THE CELL TO DISPLAY THE PLAY BUTTON AND THE SHARE BUTTON WHEN TAPPED.. IT WORKS, BUT I CAN'T DESELECT THE ROW... 
+    //TRYING TO GET THE CELL TO DISPLAY THE PLAY BUTTON AND THE SHARE BUTTON WHEN TAPPED.. IT WORKS, BUT I CAN'T DESELECT THE ROW... 
+    //TRYING TO GET THE CELL TO DISPLAY THE PLAY BUTTON AND THE SHARE BUTTON WHEN TAPPED.. IT WORKS, BUT I CAN'T DESELECT THE ROW... 
+    //TRYING TO GET THE CELL TO DISPLAY THE PLAY BUTTON AND THE SHARE BUTTON WHEN TAPPED.. IT WORKS, BUT I CAN'T DESELECT THE ROW...
+//    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "recordingCell", for: indexPath) as? RecordingsCustomTableViewCell
+//        
+//        if let index = self.RecordingsTableView.indexPathForSelectedRow {
+//            self.RecordingsTableView.deselectRow(at: index, animated: true)
+//        }
+//        
+//        if cell?.isSelected == true {
+//            
+//            let selectedRecording = recordings?[indexPath.row]
+//            
+//            cell?.recording = selectedRecording
+//            cell?.delegate = self
+//            
+//            if let selectedIndex = self.RecordingsTableView.indexPathForSelectedRow {
+//                self.RecordingsTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
+//            }
+//        
+//            cell?.shareButton.isHidden = false
+//            cell?.playPauseButton.isHidden = false
+//            cell?.favoriteButton.isHidden = false
+//            cell?.title.isHidden = false
+//            cell?.date.isHidden = false
+//            cell?.length.isHidden = false
+//        } else {
+//            
+//            cell?.isSelected = false
+//            if let deselectedIndex = self.RecordingsTableView.indexPathForSelectedRow {
+//                self.RecordingsTableView.deselectRow(at: deselectedIndex, animated: true)
+//            }
+//        }
+//    }
+    
     
     // Override to support editing the table view.
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
