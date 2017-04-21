@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import CoreData
+import CoreMedia
 
 class RecordingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioRecorderDelegate, ShareButtonTappedDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
     
@@ -17,6 +18,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var recordingButton: UIButton!
     
     private var recordings: [Recordings]?
+    var recording: Recordings?
     
     var timer: Timer?
     
@@ -156,6 +158,9 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         
         updateRecordingsFromRecordingsController()
         self.RecordingsTableView.reloadData()
+        
+        let indexPath = IndexPath(row: 0, section: 0)
+        RecordingsTableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.top)
     }
     
     
@@ -200,25 +205,13 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         
             cell.recording = recording
             cell.delegate = self
-            
-//            cell.shareButton.isHidden = true
-//            cell.playPauseButton.isHidden = true
-//            cell.favoriteButton.isHidden = false
-//            cell.title.isHidden = false
-//            cell.date.isHidden = false
-//            cell.length.isHidden = false
         
         return cell
             
         }
     }
     
-    //TRYING TO GET THE CELL TO DISPLAY THE PLAY BUTTON AND THE SHARE BUTTON WHEN TAPPED.. IT WORKS, BUT I CAN'T DESELECT THE ROW... 
-    //TRYING TO GET THE CELL TO DISPLAY THE PLAY BUTTON AND THE SHARE BUTTON WHEN TAPPED.. IT WORKS, BUT I CAN'T DESELECT THE ROW... 
-    //TRYING TO GET THE CELL TO DISPLAY THE PLAY BUTTON AND THE SHARE BUTTON WHEN TAPPED.. IT WORKS, BUT I CAN'T DESELECT THE ROW... 
-    //TRYING TO GET THE CELL TO DISPLAY THE PLAY BUTTON AND THE SHARE BUTTON WHEN TAPPED.. IT WORKS, BUT I CAN'T DESELECT THE ROW... 
-    //TRYING TO GET THE CELL TO DISPLAY THE PLAY BUTTON AND THE SHARE BUTTON WHEN TAPPED.. IT WORKS, BUT I CAN'T DESELECT THE ROW...
-//    
+    
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "recordingCell", for: indexPath) as? RecordingsCustomTableViewCell
@@ -283,5 +276,20 @@ extension RecordingsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         //let searchBar = searchController.searchBar
         filterContentForSearchText(searchController.searchBar.text!)
+    }
+}
+
+extension CMTime {
+    var durationText:String {
+        let totalSeconds = CMTimeGetSeconds(self)
+        let hours:Int = Int(totalSeconds / 3600)
+        let minutes:Int = Int(totalSeconds.truncatingRemainder(dividingBy: 3600) / 60)
+        let seconds:Int = Int(totalSeconds.truncatingRemainder(dividingBy: 60))
+        
+        if hours > 0 {
+            return String(format: "%i:%02i:%02i", hours, minutes, seconds)
+        } else {
+            return String(format: "%02i:%02i", minutes, seconds)
+        }
     }
 }

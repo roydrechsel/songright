@@ -20,6 +20,7 @@ protocol PlayPauseButtonTappedDelegate: class {
 class RecordingsCustomTableViewCell: UITableViewCell {
 
     weak var delegate: ShareButtonTappedDelegate?
+    
     var audioRecorder: AVAudioRecorder!
     
     @IBOutlet weak var title: UILabel!
@@ -38,6 +39,8 @@ class RecordingsCustomTableViewCell: UITableViewCell {
             updateViews()
         }
     }
+    
+    
     
     func stringFromDate(date: Date) -> String {
         
@@ -106,7 +109,7 @@ class RecordingsCustomTableViewCell: UITableViewCell {
         {
             title.text =  recording.title
             date.text = stringFromDate(date: recording.timestamp as! Date)
-            length.text = "6.66"
+            length.text = "\(recording.length)"
             playPauseButton.setTitle("Play", for: .normal)
             playPauseButton.setTitleColor(UIColor.blue, for: .normal)
             
@@ -144,6 +147,8 @@ class RecordingsCustomTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        shareButton.isHidden = !selected
+        playPauseButton.isHidden = !selected
     }
 
 }
