@@ -44,6 +44,17 @@ extension Recordings {
             return nil
         }
     }
+    
+    var asset: AVAsset? {
+        guard let urlString = recordingUrlFromDocuments, let url = URL(string: urlString) else { return nil }
+        return AVURLAsset(url: url)
+    }
+    
+    var audioPlayer: AVAudioPlayer? {
+        guard let urlString = recordingUrlFromDocuments, let url = URL(string: urlString) else { return nil }
+        return try? AVAudioPlayer(contentsOf: url)
+    }
+    
 }
 
 //

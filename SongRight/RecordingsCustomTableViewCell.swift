@@ -20,6 +20,13 @@ protocol PlayPauseButtonTappedDelegate: class {
 class RecordingsCustomTableViewCell: UITableViewCell {
 
     weak var delegate: ShareButtonTappedDelegate?
+    static var durationFormatter: DateComponentsFormatter {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.allowedUnits = [ .minute, .second ]
+        formatter.zeroFormattingBehavior = [ .pad ]
+        return formatter
+    }
     
     var audioRecorder: AVAudioRecorder!
     
@@ -109,9 +116,18 @@ class RecordingsCustomTableViewCell: UITableViewCell {
         {
             title.text =  recording.title
             date.text = stringFromDate(date: recording.timestamp as! Date)
-            length.text = "\(recording.length)"
             playPauseButton.setTitle("Play", for: .normal)
             playPauseButton.setTitleColor(UIColor.blue, for: .normal)
+            if let player = recording.audioPlayer {
+                length.text = RecordingsCustomTableViewCell.durationFormatter.string(from: player.duration)
+            } else if let asset = recording.asset {
+                length.text = "Loading..."
+                asset.loadValuesAsynchronously(forKeys: ["duration"], completionHandler: { [weak self] in
+                    self?.length.text = asset.duration.durationText
+                })
+            } else {
+                length.text = "\(recording.length)"
+            }
             
             if recording.isFavorite == true {
                 favoriteButton.setBackgroundImage(UIImage(named: "Favorite Selected"), for: UIControlState.normal)
