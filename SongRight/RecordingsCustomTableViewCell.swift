@@ -163,8 +163,8 @@ class RecordingsCustomTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-        shareButton.isHidden = !selected
-        playPauseButton.isHidden = !selected
+//        shareButton.isHidden = !selected
+//        playPauseButton.isHidden = !selected
     }
 
 }

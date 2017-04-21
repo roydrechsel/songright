@@ -160,7 +160,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         self.RecordingsTableView.reloadData()
         
         let indexPath = IndexPath(row: 0, section: 0)
-        RecordingsTableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.top)
+        RecordingsTableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.none)
     }
     
     
