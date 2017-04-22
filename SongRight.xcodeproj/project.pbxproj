@@ -18,6 +18,8 @@
 		548EA8361E74647C0018E0E9 /* FavoriteRecordingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548EA8351E74647C0018E0E9 /* FavoriteRecordingsViewController.swift */; };
 		54E98F5D1E7D95B600124B0C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 54E98F5B1E7D95B600124B0C /* Model.xcdatamodeld */; };
 		54E98F5F1E7D969100124B0C /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E98F5E1E7D969100124B0C /* Stack.swift */; };
+		54F9EA911EABB4CB00ED9C9F /* ScrollingTabBarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F9EA901EABB4CB00ED9C9F /* ScrollingTabBarUtils.swift */; };
+		54F9EA951EABB6EC00ED9C9F /* SongRightTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F9EA941EABB6EC00ED9C9F /* SongRightTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		548EA8351E74647C0018E0E9 /* FavoriteRecordingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteRecordingsViewController.swift; sourceTree = "<group>"; };
 		54E98F5C1E7D95B600124B0C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		54E98F5E1E7D969100124B0C /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		54F9EA901EABB4CB00ED9C9F /* ScrollingTabBarUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScrollingTabBarUtils.swift; path = "../../iOSScrollingTabBarAnimation-master/ScrollingTabBarDemo/ScrollingTabBarUtils.swift"; sourceTree = "<group>"; };
+		54F9EA941EABB6EC00ED9C9F /* SongRightTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongRightTabBarController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,8 @@
 			children = (
 				547567971E6FB93E00E1BD64 /* RecordingsController.swift */,
 				548EA8131E72537C0018E0E9 /* RecordingsCustomTableViewCell.swift */,
+				54F9EA901EABB4CB00ED9C9F /* ScrollingTabBarUtils.swift */,
+				54F9EA941EABB6EC00ED9C9F /* SongRightTabBarController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -146,7 +152,7 @@
 				TargetAttributes = {
 					5475677B1E6F974200E1BD64 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = Q7ZY7HDZF4;
+						DevelopmentTeam = 34H9ZW6J9L;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -195,11 +201,13 @@
 				548EA8361E74647C0018E0E9 /* FavoriteRecordingsViewController.swift in Sources */,
 				547567981E6FB93E00E1BD64 /* RecordingsController.swift in Sources */,
 				547567801E6F974200E1BD64 /* AppDelegate.swift in Sources */,
+				54F9EA911EABB4CB00ED9C9F /* ScrollingTabBarUtils.swift in Sources */,
 				54E98F5D1E7D95B600124B0C /* Model.xcdatamodeld in Sources */,
 				54E98F5F1E7D969100124B0C /* Stack.swift in Sources */,
 				548EA8341E7464430018E0E9 /* RecordingsViewController.swift in Sources */,
 				548EA8141E72537C0018E0E9 /* RecordingsCustomTableViewCell.swift in Sources */,
 				547567961E6FAEF700E1BD64 /* Recordings+Convenience.swift in Sources */,
+				54F9EA951EABB6EC00ED9C9F /* SongRightTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,7 +328,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Q7ZY7HDZF4;
+				DEVELOPMENT_TEAM = 34H9ZW6J9L;
 				INFOPLIST_FILE = SongRight/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.roydrechsel.SongRight;
@@ -333,7 +341,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Q7ZY7HDZF4;
+				DEVELOPMENT_TEAM = 34H9ZW6J9L;
 				INFOPLIST_FILE = SongRight/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.roydrechsel.SongRight;

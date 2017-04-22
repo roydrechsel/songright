@@ -86,6 +86,9 @@ class RecordingsCustomTableViewCell: UITableViewCell {
                 playPauseButton.setTitleColor(UIColor.black, for: .normal)
                 isPlaying = true
                 RecordingsController.shared.playRecording(recording: playableRecording)
+//                if RecordingsController.shared.playAudio?.isPlaying == false {
+//                    playPauseButton.setTitle("Play", for: .normal)
+//                }
             } else {
                 playPauseButton.setTitle("Play", for: .normal)
                 playPauseButton.setTitleColor(UIColor.blue, for: .normal)
@@ -105,12 +108,6 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     
     
     func updateViews() {
-//        guard let recording = recording else { return }
-//            , let stringFromDate = stringFromDate else { return }
-//        title.text = recording.title
-//        date.text = stringFromDate
-//        date.text = recording.timestamp
-//        length.text = "6.66"
         
         if let recording = recording
         {
@@ -162,9 +159,8 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
-//        shareButton.isHidden = !selected
-//        playPauseButton.isHidden = !selected
+        shareButton.isHidden = !selected
+        playPauseButton.isHidden = !selected
     }
 
 }
