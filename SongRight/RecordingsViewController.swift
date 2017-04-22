@@ -11,7 +11,7 @@ import AVFoundation
 import CoreData
 import CoreMedia
 
-class RecordingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioRecorderDelegate, ShareButtonTappedDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
+class RecordingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioRecorderDelegate, ShareButtonTappedDelegate, PlayPauseButtonTappedDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var RecordingsTableView: UITableView!
     @IBOutlet weak var recordingTimer: UILabel!
@@ -193,7 +193,8 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
             let recording = filteredRecordings[indexPath.row]
             cell.recording = recording
             cell.delegate = self
-            
+            cell.playPauseButtonDelegate = self
+            RecordingsController.shared.audioFinishedPlayingDelegate = cell
             return cell
         } else {
         
@@ -201,10 +202,15 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         
             cell.recording = recording
             cell.delegate = self
-        
-        return cell
+            cell.playPauseButtonDelegate = self
+            RecordingsController.shared.audioFinishedPlayingDelegate = cell
+            return cell
             
         }
+    }
+    
+    func playPauseButtonTapped(sender: RecordingsCustomTableViewCell) {
+        RecordingsController.shared.audioFinishedPlayingDelegate = sender
     }
     
     

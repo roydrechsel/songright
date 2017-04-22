@@ -14,12 +14,14 @@ protocol ShareButtonTappedDelegate: class {
 }
 
 protocol PlayPauseButtonTappedDelegate: class {
-    func playPauseButtonTapped()
+    func playPauseButtonTapped(sender: RecordingsCustomTableViewCell)
 }
 
-class RecordingsCustomTableViewCell: UITableViewCell {
+class RecordingsCustomTableViewCell: UITableViewCell, AVAudioPlayerDelegate, PlayerDidFinishPlayingDelegate {
 
     weak var delegate: ShareButtonTappedDelegate?
+    weak var playPauseButtonDelegate: PlayPauseButtonTappedDelegate?
+    
     static var durationFormatter: DateComponentsFormatter {
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .positional
@@ -39,6 +41,8 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     
     var isFavorite = false
     var isPlaying = false
+    
+    var audioDelegate: AVAudioPlayerDelegate?
     
     var recording: Recordings?
         {
@@ -77,6 +81,7 @@ class RecordingsCustomTableViewCell: UITableViewCell {
         RecordingsController.shared.saveToPersistentStorage()
     }
     
+    
     @IBAction func playPauseButtonTapped(_ sender: Any) {
         
         if let playableRecording = self.recording {
@@ -86,9 +91,8 @@ class RecordingsCustomTableViewCell: UITableViewCell {
                 playPauseButton.setTitleColor(UIColor.black, for: .normal)
                 isPlaying = true
                 RecordingsController.shared.playRecording(recording: playableRecording)
-//                if RecordingsController.shared.playAudio?.isPlaying == false {
-//                    playPauseButton.setTitle("Play", for: .normal)
-//                }
+                playPauseButtonDelegate?.playPauseButtonTapped(sender: self)
+                
             } else {
                 playPauseButton.setTitle("Play", for: .normal)
                 playPauseButton.setTitleColor(UIColor.blue, for: .normal)
@@ -97,9 +101,32 @@ class RecordingsCustomTableViewCell: UITableViewCell {
             }
         }
         
+//        isPlaying = false
         setSessionPlayback()
         
     }
+    
+    func playerDidFinishPlaying() {
+        
+        guard let currentAudio = RecordingsController.shared.playAudio else { return }
+
+        if currentAudio.isPlaying == false {
+            
+            playPauseButton.setTitle("Play", for: .normal)
+            playPauseButton.setTitleColor(UIColor.blue, for: .normal)
+        }
+    }
+//    
+//    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+//        
+//        
+//        if currentAudio.isPlaying == false {
+//            
+//            playPauseButton.setTitle("Play", for: .normal)
+//            playPauseButton.setTitleColor(UIColor.blue, for: .normal)
+//        }
+//        
+//    }
     
     @IBAction func shareButtonTapped(_ sender: Any) {
         
@@ -154,6 +181,7 @@ class RecordingsCustomTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        audioDelegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

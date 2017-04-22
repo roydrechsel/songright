@@ -23,6 +23,8 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
     
     let recording = Recordings()
     
+    var audioFinishedPlayingDelegate: PlayerDidFinishPlayingDelegate?
+    
     
     //MOVE ALL OF MY AVFOUNDATION STUFF FROM THE RECORDINGSVIEWCONTROLLER INTO THIS RECORDINGSCONTROLLER!
     //MOVE ALL OF MY AVFOUNDATION STUFF FROM THE RECORDINGSVIEWCONTROLLER INTO THIS RECORDINGSCONTROLLER!
@@ -61,6 +63,11 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
 //        
 //        return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
 //    }()
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        
+        audioFinishedPlayingDelegate?.playerDidFinishPlaying()
+    }
 
     
     func createRecording(recording: Recordings) {
@@ -232,4 +239,9 @@ class RecordingsController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
     }
     
     
+}
+
+protocol PlayerDidFinishPlayingDelegate {
+    
+    func playerDidFinishPlaying()
 }
