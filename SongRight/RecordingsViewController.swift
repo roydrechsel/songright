@@ -144,10 +144,6 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
 //        return dateFormatter.string(from: date)
 //    }
     
-    
-   
-    
-    
     private func updateRecordingsFromRecordingsController()
     {
         recordings = RecordingsController.shared.recordings?.filter({ $0.recordingURL != nil && $0.recordingURL!.characters.count > 0 })

@@ -24,9 +24,12 @@ class FavoriteRecordingsViewController: UIViewController, UITableViewDataSource,
     
     override func viewWillAppear(_ animated: Bool) {
         
+        super.viewWillAppear(animated)
+        
+        self.FavoriteRecordingsTableView.reloadData()
+        
         let indexPath = IndexPath(row: 0, section: 0)
         FavoriteRecordingsTableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.none)
-        FavoriteRecordingsTableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
