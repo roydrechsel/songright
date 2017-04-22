@@ -18,6 +18,8 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var recordingButton: UIButton!
     
     private var recordings: [Recordings]?
+    private let lastSelectedCellIndexPathSectionKey = "lastSelectedCellIndexPathSection"
+    private let lastSelectedCellIndexPathRowKey = "lastSelectedCellIndexPathRow"
     var recording: Recordings?
     
     var timer: Timer?
@@ -155,8 +157,10 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
         updateRecordingsFromRecordingsController()
         self.RecordingsTableView.reloadData()
         
-        let indexPath = IndexPath(row: 0, section: 0)
-        RecordingsTableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.none)
+        guard let section = UserDefaults.standard.value(forKey: lastSelectedCellIndexPathSectionKey) as? Int,
+        let row = UserDefaults.standard.value(forKey: lastSelectedCellIndexPathRowKey) as? Int else { return }
+        let selectedIndexPath = IndexPath(row: row, section: section)
+        RecordingsTableView.selectRow(at: selectedIndexPath, animated: true, scrollPosition: UITableViewScrollPosition.none)
     }
     
     
@@ -214,41 +218,6 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "recordingCell", for: indexPath) as? RecordingsCustomTableViewCell
-//        
-//        if let index = self.RecordingsTableView.indexPathForSelectedRow {
-//            self.RecordingsTableView.deselectRow(at: index, animated: true)
-//        }
-//        
-//        if cell?.isSelected == true {
-//            
-//            let selectedRecording = recordings?[indexPath.row]
-//            
-//            cell?.recording = selectedRecording
-//            cell?.delegate = self
-//            
-//            if let selectedIndex = self.RecordingsTableView.indexPathForSelectedRow {
-//                self.RecordingsTableView.selectRow(at: selectedIndex, animated: true, scrollPosition: .none)
-//            }
-//        
-//            cell?.shareButton.isHidden = false
-//            cell?.playPauseButton.isHidden = false
-//            cell?.favoriteButton.isHidden = false
-//            cell?.title.isHidden = false
-//            cell?.date.isHidden = false
-//            cell?.length.isHidden = false
-//        } else {
-//            
-//            cell?.isSelected = false
-//            if let deselectedIndex = self.RecordingsTableView.indexPathForSelectedRow {
-//                self.RecordingsTableView.deselectRow(at: deselectedIndex, animated: true)
-//            }
-//        }
-//    }
-    
-    
     // Override to support editing the table view.
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -258,6 +227,11 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
             updateRecordingsFromRecordingsController()
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        UserDefaults.standard.set(indexPath.section, forKey: lastSelectedCellIndexPathSectionKey)
+        UserDefaults.standard.set(indexPath.row, forKey: lastSelectedCellIndexPathRowKey)
     }
     
     func filterContentForSearchText(_ searchText: String) {

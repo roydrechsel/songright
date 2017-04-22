@@ -12,7 +12,8 @@ class FavoriteRecordingsViewController: UIViewController, UITableViewDataSource,
     
     @IBOutlet weak var FavoriteRecordingsTableView: UITableView!
     
-    
+    private let lastSelectedCellIndexPathSectionKey = "lastSelectedCellIndexPathSection"
+    private let lastSelectedCellIndexPathRowKey = "lastSelectedCellIndexPathRow"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +29,10 @@ class FavoriteRecordingsViewController: UIViewController, UITableViewDataSource,
         
         self.FavoriteRecordingsTableView.reloadData()
         
-        let indexPath = IndexPath(row: 0, section: 0)
-        FavoriteRecordingsTableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.none)
+        guard let section = UserDefaults.standard.value(forKey: lastSelectedCellIndexPathSectionKey) as? Int,
+            let row = UserDefaults.standard.value(forKey: lastSelectedCellIndexPathRowKey) as? Int else { return }
+        let selectedIndexPath = IndexPath(row: row, section: section)
+        FavoriteRecordingsTableView.selectRow(at: selectedIndexPath, animated: true, scrollPosition: UITableViewScrollPosition.none)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,5 +52,9 @@ class FavoriteRecordingsViewController: UIViewController, UITableViewDataSource,
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        UserDefaults.standard.set(indexPath.section, forKey: lastSelectedCellIndexPathSectionKey)
+        UserDefaults.standard.set(indexPath.row, forKey: lastSelectedCellIndexPathRowKey)
+    }
     
 }
