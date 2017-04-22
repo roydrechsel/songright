@@ -111,6 +111,9 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
                     
                     self.updateRecordingsFromRecordingsController()
                     self.RecordingsTableView.reloadData()
+                    
+                    let newIndexPath = IndexPath(row: 0, section: 0)
+                    self.RecordingsTableView.selectRow(at: newIndexPath, animated: true, scrollPosition: UITableViewScrollPosition.none)
                 })
                 
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action: UIAlertAction) -> Void in }
@@ -129,6 +132,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
                 return
             }
         }
+        
     }
     
     //TODO -- UPDATE activityItems TO BE AN ACTUAL RECORDING OBJECT TO SHARE, RATHER THAN JUST THE PLACEHOLDER THAT I'M SHARING RIGHT NOW
@@ -208,6 +212,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
             cell.delegate = self
             cell.playPauseButtonDelegate = self
             RecordingsController.shared.audioFinishedPlayingDelegate = cell
+            
             return cell
             
         }
@@ -230,6 +235,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         UserDefaults.standard.set(indexPath.section, forKey: lastSelectedCellIndexPathSectionKey)
         UserDefaults.standard.set(indexPath.row, forKey: lastSelectedCellIndexPathRowKey)
     }
