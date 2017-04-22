@@ -32,7 +32,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LxH-n6-iPz" id="wZY-yG-B0W">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2z-eO-Tcn" userLabel="Share Button">
@@ -159,7 +159,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sdm-th-sRR" id="L57-8G-auy">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xl-so-oXP" userLabel="Share Button">
@@ -250,7 +250,7 @@
                                     <constraint firstAttribute="width" secondItem="7VD-QP-tn0" secondAttribute="height" multiplier="1:1" id="UmJ-bx-9NK"/>
                                     <constraint firstAttribute="width" constant="85" id="sIn-ae-NKc"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Button" backgroundImage="Red-circle-transparent-1024x1006"/>
                                 <connections>
                                     <action selector="recordButtonTapped:" destination="I8M-ay-imG" eventType="touchUpInside" id="JrM-ME-szd"/>
                                 </connections>
@@ -327,6 +327,7 @@
     </scenes>
     <resources>
         <image name="Favorite Deselected" width="800" height="800"/>
+        <image name="Red-circle-transparent-1024x1006" width="512" height="503"/>
         <image name="first" width="30" height="30"/>
         <image name="main-qimg-d7704f6cffa4dc8343df27f3b79203d5" width="120" height="173"/>
     </resources>

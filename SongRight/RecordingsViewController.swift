@@ -57,7 +57,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
                     if allowed {
                         self.recordingButton.addTarget(self, action: #selector(self.recordButtonTapped), for: .touchUpInside)
                         self.recordingButton.setTitle("Record", for: .normal)
-                        self.recordingButton.setTitleColor(UIColor.red, for: .normal)
+                        self.recordingButton.setTitleColor(UIColor.white, for: .normal)
                         
                     } else {
                         //failed to record
@@ -122,7 +122,7 @@ class RecordingsViewController: UIViewController, UITableViewDataSource, UITable
                 
                 self.present(alertController, animated: true, completion: nil)
                 recordingButton.setTitle("Record", for: .normal)
-                recordingButton.setTitleColor(UIColor.red, for: .normal)
+                recordingButton.setTitleColor(UIColor.white, for: .normal)
                 recordingTimer.isHidden = true
 
             } else {
